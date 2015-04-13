@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <script type="text/javascript" src="javascripts/quizlib.1.0.0.min.js"></script>
+        <script type="text/javascript" src="javascripts/main.js"></script>
+        <link rel="stylesheet" type="text/css" href="stylesheets/quizlib.min.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+        
+        <title>Quizlib Example</title>
+    </head>
+
+    <body>
+        <!-- Quiz Results -->
+        <div id="quiz-result" class="card">
+            You Scored <span id="quiz-percent"></span>% - <span id="quiz-score"></span>/<span id="quiz-max-score"></span><br/>
+        </div>
+        <div id="quiz">
+            <!-- Question 1 -->
+            <div class="card quizlib-question">
+                <div class="quizlib-question-title">1. What is the answer to life, the universe and everything?</div>
+                <div class="quizlib-question-answers">
+                    <input type="text" name="q1">
+                </div>
+            </div>
+            <!-- Question 2 -->
+            <div class="card quizlib-question">
+                <div class="quizlib-question-title">2. Your enemy's father...</div>
+                <div class="quizlib-question-answers">
+                    <ul>
+                        <li><label><input type="radio" name="q2" value="a"> is a hamster</label></li>
+                        <li><label><input type="radio" name="q2" value="b"> smells of elderberries</label></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Question 3 -->
+            <div class="card quizlib-question">
+                <div class="quizlib-question-title">3. Which factors will contribute to the end of humanity as we know it?</div>
+                <div class="quizlib-question-answers">
+                    <ul>
+                        <li><label><input type="checkbox" name="q3" value="a"> Global warming</label></li>
+                        <li><label><input type="checkbox" name="q3" value="b"> The release of Linux 4.1.15</label></li>
+                        <li><label><input type="checkbox" name="q3" value="c"> Cats</label></li>
+                        <li><label><input type="checkbox" name="q3" value="d"> Advancements in artificial intelligence</label></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Answer Button -->
+            <button type="button" onclick="showResults();">Check Answers</button>
+        </div>
+    </body>
+</html>
