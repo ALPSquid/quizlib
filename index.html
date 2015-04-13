@@ -18,7 +18,7 @@
         <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
 
-        <title>Quizlib by ALPSquid</title>
+        <title>Quizlib - A simple JS quiz library</title>
     </head>
 
     <body>
@@ -32,7 +32,7 @@
 
         <div id="content-wrapper">
         <div class="inner clearfix">
-            <section id="main-content">
+            <a id="main-content">
                 <h2>Contents</h2>
                 <ul>
                     <li><a href="#demo">Demo</a></li>                    
@@ -42,7 +42,7 @@
                             <li><a href="#javascript">JavaScript</a></li>
                         </ul>
                     </li>
-                    <li><a href="docs">Docs</a></li>
+                    <li><a href="docs" target="_blank">Docs</a></li>
                 </ul>
             
                 <br/>
@@ -142,10 +142,10 @@
 </code></pre>
                 <br/>
                 <h3><a id="javascript" class="anchor" href="#javascript" aria-hidden="true"><span class="octicon octicon-link"></span></a>JavaScript</h3>
-                Create a new Quiz object where the first parameter is the ID of your quiz container and the second parameter is an array of question answers (input values) in order.
+                Create a new <a href="docs/classes/Quiz" target="_blank">Quiz</a> object where the first parameter is the ID of your quiz container and the second parameter is an array of question answers (input values) in order.
                 <ul> 
-                    <li>To check answers, call Quiz.checkAnswers which returns false if some questions have been skipped and marks them with a message appended to the title. Otherwise returns true and updates Quiz.result</li>
-                    <li>You can then access score data through Quiz.result which is a QuizResult object.</li>
+                    <li>To check answers, call <a href="docs/classes/Quiz#method_checkAnswers" target="_blank">Quiz.checkAnswers</a> which returns false if some questions have been skipped and marks them with a message appended to the title. Otherwise returns true and updates <a href="docs/classes/Quiz#property_result" target="_blank">Quiz.result</a></li>
+                    <li>You can then access score data through <a href="docs/classes/Quiz#property_result" target="_blank">Quiz.result</a> which is a <a href="docs/classes/QuizResult" target="_blank">QuizResult</a> object.</li>
                 </ul>
                 
                 <p><strong>Example</strong><br>
@@ -168,7 +168,7 @@
 </code></pre>
                 <br/>
                 
-                <h2><a id="docs" href="docs" aria-hidden="true"><span class="octicon octicon-link"></span>Docs</a></h2>
+                <h2><a id="docs" href="docs" target="_blank" aria-hidden="true"><span class="octicon octicon-link"></span>Docs</a></h2>
             </section>
                 
             <aside id="sidebar">

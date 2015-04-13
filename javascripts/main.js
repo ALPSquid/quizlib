@@ -24,8 +24,19 @@ function handleAnswers(question, no, correct) {
     if (!correct) {
         var answers = question.getElementsByTagName('input');
         for (var i = 0; i < answers.length; i++) {
-            if (quiz.answers[no].indexOf(answers[i].value) > -1) {
-                answers[i].parentNode.classList.add(quiz.Classes.CORRECT);
+            switch (answers[i].type) {
+                case "checkbox":
+                case "radio":
+                    if (quiz.answers[no].indexOf(answers[i].value) > -1) {
+                        answers[i].parentNode.classList.add(quiz.Classes.CORRECT);
+                    }
+                    break;
+                default:
+                    var correctAnswer = document.createElement('span');
+                    correctAnswer.classList.add(quiz.Classes.CORRECT);
+                    correctAnswer.innerHTML = quiz.answers[no];
+                    correctAnswer.style.marginLeft = '10px';
+                    answers[i].parentNode.insertBefore(correctAnswer, answers[i].nextSibling);
             }
         }
     }
