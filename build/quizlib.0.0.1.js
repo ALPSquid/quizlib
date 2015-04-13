@@ -172,9 +172,16 @@ Quiz.prototype.checkAnswers = function(flagUnanswered) {
 		
 		// Get answers
 		var answerInputs = question.getElementsByClassName(this.Classes.QUESTION_ANSWERS)[0].getElementsByTagName('input');
+		var input;
 		for (var k=0; k < answerInputs.length; k++) {
-			if (answerInputs[k].checked) {
-				userAnswer.push(answerInputs[k].value);
+			input = answerInputs[k];
+			switch (input.type) {
+				case "checkbox":
+				case "radio":
+					if (input.checked) userAnswer.push(input.value);
+					break;
+				default:
+					if (input.value !== '') userAnswer.push(input.value);
 			}
 		}
 		// Remove single answer from array to match provided answer format
