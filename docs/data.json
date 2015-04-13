@@ -30,7 +30,7 @@
             "extension_for": [],
             "file": "src/quizlib.js",
             "line": 1,
-            "description": "Class that represents an HTML Quiz. Provides methods for checking answers and generating a score.  \n\nTo use:  \n*Note:* Required classes are not exclusive; you can still use your own classes alongside them.  \n\n**HTML**  \nImport the QuizLib.js script and optional QuizLibStyle.css stylesheet. The stylesheet provides basic formatting but styling is left open to you.\n- Create a quiz container element containing child elements for each question. Each question element must use the 'question' class.\n- Each question element must have a question title element using the class 'question-title'. The unanswered question warning will be appended to this element.\n- Each question element must also have a question answers element using the class 'question-answers'. This element must contain answers that use the input tag. You can use any input type, quantity and structure you like.\n- Each answer input must have an arbitrary value which will be used as its answer value.\n\nQuizLib makes use of the following classes (See {{#crossLink \"Quiz/Classes:property\"}}{{/crossLink}}):\n- 'quizlib-question': used to identify a question element\n- 'quizlib-question-title': used to identify the question title element\n- 'quizlib-question-answers': used to identify the element containing question answers\n- 'quizlib-question-warning': used by the 'unanswered question warning' element\n- 'quizlib-correct': added to question titles to highlight correctly answered questions. \n   Use freely to take advantage of {{#crossLink \"Quiz/highlightResults:method\"}}{{/crossLink}} and {{#crossLink \"Quiz/clearHighlights:method\"}}{{/crossLink}}\n- 'quizlib-incorrect': added to question titles to highlight incorrectly answered questions.\n   Use freely to take advantage of {{#crossLink \"Quiz/highlightResults:method\"}}{{/crossLink}} and {{#crossLink \"Quiz/clearHighlights:method\"}}{{/crossLink}}\n\n*Example:*  \n```\n<!-- Quiz Container -->  \n<div id=\"quiz-div\">  \n    <!-- Question 1 -->  \n    <div class=\"quizlib-question my-class\">  \n        <div class=\"quizlib-question-title\">1. Question Title</div>  \n        <div class=\"quizlib-question-answers\">  \n            <!-- Answer structure can be as simple or as complicated as you like, only the input element matters to the library -->\n            <input type=\"radio\" name=\"q1\" value=\"a\"> Option 1<br/>\n            <input type=\"radio\" name=\"q1\" value=\"b\"> Option 2<br/>\n        </div>  \n    </div>  \n    <!-- Question 2 -->  \n    <div class=\"quizlib-question my-class\">  \n        <div class=\"quizlib-question-title\">2. Question Title</div>  \n        <div class=\"quizlib-question-answers\">\n            <ul>  \n                <li><label><input type=\"checkbox\" name=\"q2\" value=\"a\"> Option 1</label></li>  \n                <li><label><input type=\"checkbox\" name=\"q2\" value=\"b\"> Option 2</label></li>  \n                <li><label><input type=\"checkbox\" name=\"q2\" value=\"c\"> Option 3</label></li>  \n                <li><label><input type=\"checkbox\" name=\"q2\" value=\"d\"> Option 4</label></li>  \n            </ul>  \n        </div>  \n    </div>\n    <!-- Answer Button -->\n    <button type=\"button\" onclick=\"myAnswerCheckMethod();\">Check Answers</button>\n</div>\n```\n\n\n**JavaScript**  \n- Create a new Quiz object where the first parameter is the ID of your quiz container and the second parameter is an array of question answers (input values) in order.\n- To check answers, call {{#crossLink \"Quiz/checkAnswers:method\"}}{{/crossLink}} which returns false if some questions have been skipped and marks them with a message appended to the title. Otherwise returns true and updates {{#crossLink \"Quiz/result:property\"}}{{/crossLink}}\n- You can then access score data through {{#crossLink \"Quiz/result:property\"}}{{/crossLink}} which is a {{#crossLink \"QuizResult\"}}{{/crossLink}} object.\n\n*Example*  \n\nCreate the quiz instance  \n```\nvar quiz = new Quiz('quiz-div', ['a', ['b', 'c', 'd']]);\n```  \nCreate a method to check the answers\n```\nfunction myAnswerCheckMethod() {\n    // checkAnswers returns true if all questions have been answered and updates the result object\n    if (quiz.checkAnswers()) {\n        console.log('Correct answers: ' + quiz.result.score + '/' + quiz.result.results.length);\n        console.log('Percent correct: ' + quiz.result.scorePercentFormatted + '%');\n    }\n```",
+            "description": "Class that represents an HTML Quiz. Provides methods for checking answers and generating a score.  \n\nSee https://alpsquid.github.io/quizlib for usage",
             "is_constructor": 1,
             "params": [
                 {
@@ -57,7 +57,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src/quizlib.js",
-            "line": 278,
+            "line": 208,
             "description": "Quiz Result class that holds score information",
             "is_constructor": 1
         },
@@ -70,14 +70,14 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src/quizlib.js",
-            "line": 335,
+            "line": 265,
             "description": "Utils class that provides useful methods"
         }
     },
     "classitems": [
         {
             "file": "src/quizlib.js",
-            "line": 85,
+            "line": 15,
             "description": "Enum containing classes used by QuizLib as follows:\n- **QUESTION**: 'quizlib-question'\n  - used to identify a question element\n- **QUESTION_TITLE**: 'quizlib-question-title'\n  - used to identify the question title element\n- **QUESTION_WARNING**: 'quizlib-question-answers'\n  - used to identify the element containing question answers\n- **QUESTION_ANSWERS**: 'quizlib-question-warning'\n  - used by the 'unanswered question warning' element\n- **CORRECT**: 'quizlib-correct'\n  - added to question titles to highlight correctly answered questions.  \n    Use freely to take advantage of {{#crossLink \"Quiz/highlightResults:method\"}}{{/crossLink}} and {{#crossLink \"Quiz/clearHighlights:method\"}}{{/crossLink}}\n- **INCORRECT**: 'quizlib-incorrect'\n  - added to question titles to highlight incorrectly answered questions.  \n    Use freely to take advantage of {{#crossLink \"Quiz/highlightResults:method\"}}{{/crossLink}} and {{#crossLink \"Quiz/clearHighlights:method\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "Classes",
@@ -88,7 +88,17 @@
         },
         {
             "file": "src/quizlib.js",
-            "line": 128,
+            "line": 46,
+            "description": "Warning displayed on unanswered questions",
+            "itemtype": "property",
+            "name": "unansweredQuestionText",
+            "type": "String",
+            "default": "'Unanswered Question!'",
+            "class": "Quiz"
+        },
+        {
+            "file": "src/quizlib.js",
+            "line": 58,
             "description": "Quiz Result object containing quiz score information. See {{#crossLink \"QuizResult\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "result",
@@ -97,7 +107,7 @@
         },
         {
             "file": "src/quizlib.js",
-            "line": 135,
+            "line": 65,
             "description": "User defined answers taken from constructor",
             "itemtype": "property",
             "name": "answers",
@@ -106,7 +116,7 @@
         },
         {
             "file": "src/quizlib.js",
-            "line": 155,
+            "line": 85,
             "description": "Checks quiz answers against provided answers. Calls {{#crossLink \"Quiz/clearHighlights:method\"}}{{/crossLink}} for each question.",
             "itemtype": "method",
             "name": "checkAnswers",
@@ -127,7 +137,7 @@
         },
         {
             "file": "src/quizlib.js",
-            "line": 213,
+            "line": 143,
             "description": "Clears highlighting for a question element (correct and incorrect classes), including unanswered question warnings",
             "itemtype": "method",
             "name": "clearHighlights",
@@ -142,7 +152,7 @@
         },
         {
             "file": "src/quizlib.js",
-            "line": 238,
+            "line": 168,
             "description": "Highlights correctly and incorrectly answered questions by:  \n- Adding the class 'quizlib-correct' to correctly answered question titles\n- Adding the class 'quizlib-incorrect' to incorrectly answered question titles",
             "itemtype": "method",
             "name": "highlightResults",
@@ -161,7 +171,7 @@
         },
         {
             "file": "src/quizlib.js",
-            "line": 285,
+            "line": 215,
             "description": "Array of booleans where the index is the question number and the value is whether the question was answered correctly. Updated by {{#crossLink \"QuizResult/setResults:method\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "results",
@@ -170,7 +180,7 @@
         },
         {
             "file": "src/quizlib.js",
-            "line": 291,
+            "line": 221,
             "description": "Number of questions answered correctly. Updated by {{#crossLink \"QuizResult/setResults:method\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "results",
@@ -179,7 +189,7 @@
         },
         {
             "file": "src/quizlib.js",
-            "line": 297,
+            "line": 227,
             "description": "Number of questions answered correctly. Updated by {{#crossLink \"QuizResult/setResults:method\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "score",
@@ -188,7 +198,7 @@
         },
         {
             "file": "src/quizlib.js",
-            "line": 303,
+            "line": 233,
             "description": "Percentage score between 0 and 1. Updated by {{#crossLink \"QuizResult/setResults:method\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "scorePercent",
@@ -197,7 +207,7 @@
         },
         {
             "file": "src/quizlib.js",
-            "line": 309,
+            "line": 239,
             "description": "Formatted score percent that's more useful to humans (1 - 100). Percent is rounded down. Updated by {{#crossLink \"QuizResult/setResults:method\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "scorePercentFormatted",
@@ -206,7 +216,7 @@
         },
         {
             "file": "src/quizlib.js",
-            "line": 317,
+            "line": 247,
             "description": "Calculates score information from an array of question results and updates properties",
             "itemtype": "method",
             "name": "setResults",
@@ -221,7 +231,7 @@
         },
         {
             "file": "src/quizlib.js",
-            "line": 341,
+            "line": 271,
             "description": "Compare two objects without coercion. If objects are arrays, their contents will be compared, including order.",
             "itemtype": "method",
             "name": "compare",

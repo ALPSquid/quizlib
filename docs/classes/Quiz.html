@@ -91,69 +91,8 @@
 
 <div class="box intro">
     <p>Class that represents an HTML Quiz. Provides methods for checking answers and generating a score.  </p>
-<p>To use:<br><em>Note:</em> Required classes are not exclusive; you can still use your own classes alongside them.  </p>
-<p><strong>HTML</strong><br>Import the QuizLib.js script and optional QuizLibStyle.css stylesheet. The stylesheet provides basic formatting but styling is left open to you.</p>
-<ul>
-<li>Create a quiz container element containing child elements for each question. Each question element must use the &#39;question&#39; class.</li>
-<li>Each question element must have a question title element using the class &#39;question-title&#39;. The unanswered question warning will be appended to this element.</li>
-<li>Each question element must also have a question answers element using the class &#39;question-answers&#39;. This element must contain answers that use the input tag. You can use any input type, quantity and structure you like.</li>
-<li>Each answer input must have an arbitrary value which will be used as its answer value.</li>
-</ul>
-<p>QuizLib makes use of the following classes (See <a href="../classes/Quiz.html#property_Classes" class="crosslink">Classes</a>):</p>
-<ul>
-<li>&#39;quizlib-question&#39;: used to identify a question element</li>
-<li>&#39;quizlib-question-title&#39;: used to identify the question title element</li>
-<li>&#39;quizlib-question-answers&#39;: used to identify the element containing question answers</li>
-<li>&#39;quizlib-question-warning&#39;: used by the &#39;unanswered question warning&#39; element</li>
-<li>&#39;quizlib-correct&#39;: added to question titles to highlight correctly answered questions. 
- Use freely to take advantage of <a href="../classes/Quiz.html#method_highlightResults" class="crosslink">highlightResults</a> and <a href="../classes/Quiz.html#method_clearHighlights" class="crosslink">clearHighlights</a></li>
-<li>&#39;quizlib-incorrect&#39;: added to question titles to highlight incorrectly answered questions.
- Use freely to take advantage of <a href="../classes/Quiz.html#method_highlightResults" class="crosslink">highlightResults</a> and <a href="../classes/Quiz.html#method_clearHighlights" class="crosslink">clearHighlights</a></li>
-</ul>
-<p><em>Example:</em>  </p>
-<pre class="code prettyprint"><code>&lt;!-- Quiz Container --&gt;  
-&lt;div id="quiz-div"&gt;  
-    &lt;!-- Question 1 --&gt;  
-    &lt;div class="quizlib-question my-class"&gt;  
-        &lt;div class="quizlib-question-title"&gt;1. Question Title&lt;/div&gt;  
-        &lt;div class="quizlib-question-answers"&gt;  
-            &lt;!-- Answer structure can be as simple or as complicated as you like, only the input element matters to the library --&gt;
-            &lt;input type="radio" name="q1" value="a"&gt; Option 1&lt;br/&gt;
-            &lt;input type="radio" name="q1" value="b"&gt; Option 2&lt;br/&gt;
-        &lt;/div&gt;  
-    &lt;/div&gt;  
-    &lt;!-- Question 2 --&gt;  
-    &lt;div class="quizlib-question my-class"&gt;  
-        &lt;div class="quizlib-question-title"&gt;2. Question Title&lt;/div&gt;  
-        &lt;div class="quizlib-question-answers"&gt;
-            &lt;ul&gt;  
-                &lt;li&gt;&lt;label&gt;&lt;input type="checkbox" name="q2" value="a"&gt; Option 1&lt;/label&gt;&lt;/li&gt;  
-                &lt;li&gt;&lt;label&gt;&lt;input type="checkbox" name="q2" value="b"&gt; Option 2&lt;/label&gt;&lt;/li&gt;  
-                &lt;li&gt;&lt;label&gt;&lt;input type="checkbox" name="q2" value="c"&gt; Option 3&lt;/label&gt;&lt;/li&gt;  
-                &lt;li&gt;&lt;label&gt;&lt;input type="checkbox" name="q2" value="d"&gt; Option 4&lt;/label&gt;&lt;/li&gt;  
-            &lt;/ul&gt;  
-        &lt;/div&gt;  
-    &lt;/div&gt;
-    &lt;!-- Answer Button --&gt;
-    &lt;button type="button" onclick="myAnswerCheckMethod();"&gt;Check Answers&lt;/button&gt;
-&lt;/div&gt;
-</code></pre><p><strong>JavaScript</strong>  </p>
-<ul>
-<li>Create a new Quiz object where the first parameter is the ID of your quiz container and the second parameter is an array of question answers (input values) in order.</li>
-<li>To check answers, call <a href="../classes/Quiz.html#method_checkAnswers" class="crosslink">checkAnswers</a> which returns false if some questions have been skipped and marks them with a message appended to the title. Otherwise returns true and updates <a href="../classes/Quiz.html#property_result" class="crosslink">result</a></li>
-<li>You can then access score data through <a href="../classes/Quiz.html#property_result" class="crosslink">result</a> which is a <a href="../classes/QuizResult.html" class="crosslink">QuizResult</a> object.</li>
-</ul>
-<p><em>Example</em>  </p>
-<p>Create the quiz instance  </p>
-<pre class="code prettyprint"><code>var quiz = new Quiz(&#39;quiz-div&#39;, [&#39;a&#39;, [&#39;b&#39;, &#39;c&#39;, &#39;d&#39;]]);
-</code></pre><p>Create a method to check the answers</p>
-<pre class="code prettyprint"><code>function myAnswerCheckMethod() {
-    // checkAnswers returns true if all questions have been answered and updates the result object
-    if (quiz.checkAnswers()) {
-        console.log(&#39;Correct answers: &#39; + quiz.result.score + &#39;/&#39; + quiz.result.results.length);
-        console.log(&#39;Percent correct: &#39; + quiz.result.scorePercentFormatted + &#39;%&#39;);
-    }
-</code></pre>
+<p>See <a href="https://alpsquid.github.io/quizlib">https://alpsquid.github.io/quizlib</a> for usage</p>
+
 </div>
 
     <div class="constructor">
@@ -283,6 +222,10 @@
                                 <a href="#property_result">result</a>
 
                             </li>
+                            <li class="index-item property">
+                                <a href="#property_unansweredQuestionText">unansweredQuestionText</a>
+
+                            </li>
                     </ul>
                 </div>
 
@@ -316,7 +259,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/src_quizlib.js.html#l155"><code>src&#x2F;quizlib.js:155</code></a>
+        <a href="../files/src_quizlib.js.html#l85"><code>src&#x2F;quizlib.js:85</code></a>
         </p>
 
 
@@ -380,7 +323,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/src_quizlib.js.html#l213"><code>src&#x2F;quizlib.js:213</code></a>
+        <a href="../files/src_quizlib.js.html#l143"><code>src&#x2F;quizlib.js:143</code></a>
         </p>
 
 
@@ -434,7 +377,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/src_quizlib.js.html#l238"><code>src&#x2F;quizlib.js:238</code></a>
+        <a href="../files/src_quizlib.js.html#l168"><code>src&#x2F;quizlib.js:168</code></a>
         </p>
 
 
@@ -508,7 +451,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/src_quizlib.js.html#l135"><code>src&#x2F;quizlib.js:135</code></a>
+                            <a href="../files/src_quizlib.js.html#l65"><code>src&#x2F;quizlib.js:65</code></a>
                             </p>
                     
                     
@@ -534,7 +477,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/src_quizlib.js.html#l85"><code>src&#x2F;quizlib.js:85</code></a>
+                            <a href="../files/src_quizlib.js.html#l15"><code>src&#x2F;quizlib.js:15</code></a>
                             </p>
                     
                     
@@ -586,7 +529,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/src_quizlib.js.html#l128"><code>src&#x2F;quizlib.js:128</code></a>
+                            <a href="../files/src_quizlib.js.html#l58"><code>src&#x2F;quizlib.js:58</code></a>
                             </p>
                     
                     
@@ -597,6 +540,32 @@
                     
                         </div>
                     
+                    
+                    
+                    </div>
+                    <div id="property_unansweredQuestionText" class="property item">
+                        <h3 class="name"><code>unansweredQuestionText</code></h3>
+                        <span class="type">String</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_quizlib.js.html#l46"><code>src&#x2F;quizlib.js:46</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Warning displayed on unanswered questions</p>
+                    
+                        </div>
+                    
+                            <p><strong>Default:</strong> &#x27;Unanswered Question!&#x27;</p>
                     
                     
                     </div>
