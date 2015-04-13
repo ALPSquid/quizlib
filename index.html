@@ -1,157 +1,200 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv="X-UA-Compatible" content="chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <script type="text/javascript" src="javascripts/highlight.pack.js"></script>
+        <script type="text/javascript" src="javascripts/quizlib.0.0.1.min.js"></script>
+        <script type="text/javascript" src="javascripts/main.js"></script>
+        <link rel="stylesheet" type="text/css" href="stylesheets/github.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="stylesheets/quizlib.min.css" media="screen">
+        <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
 
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+        <!--[if lt IE 9]>
+        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
 
-    <title>Quizlib by ALPSquid</title>
-  </head>
+        <title>Quizlib by ALPSquid</title>
+    </head>
 
-  <body>
-    <header>
-      <div class="inner">
-        <h1>Quizlib</h1>
-        <h2>A simple JavaScript library for creating HTML quizzes</h2>
-        <a href="https://github.com/ALPSquid/quizlib" class="button"><small>View project on</small> GitHub</a>
-      </div>
-    </header>
+    <body>
+        <header>
+            <div class="inner">
+            <h1>Quizlib</h1>
+            <h2>A simple JavaScript library for creating HTML quizzes</h2>
+            <a href="https://github.com/ALPSquid/quizlib" class="button"><small>View project on</small> GitHub</a>
+            </div>
+        </header>
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <p>Jump to:</p>
+        <div id="content-wrapper">
+        <div class="inner clearfix">
+            <section id="main-content">
+                <h2>Contents</h2>
+                <ul>
+                    <li><a href="#demo">Demo</a></li>                    
+                    <li><a href="#usage">Usage</a>
+                        <ul>
+                            <li><a href="#html">HTML</a></li>
+                            <li><a href="#javascript">JavaScript</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#docs">Docs</a></li>
+                </ul>
+            
+                <br/>
+                <h2><a id="demo" class="anchor" href="#demo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo</h2>
 
-<ul>
-<li>Demo</li>
-<li>Usage</li>
-<li>Docs</li>
-</ul>
-
-<h2>
-<a id="demo" class="anchor" href="#demo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo</h2>
-
-<h2>
-<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
-
-<h3>
-<a id="html" class="anchor" href="#html" aria-hidden="true"><span class="octicon octicon-link"></span></a>HTML</h3>
-
-<p>Import quizlib.js and the optional stylesheet.</p>
-
-<p>QuizLib makes use of the following classes as described below. Classes are not exclusive, so you can use your own alongside them:</p>
-
-<ul>
-<li>'quizlib-question': used to identify a question element</li>
-<li>'quizlib-question-title': used to identify the question title element</li>
-<li>'quizlib-question-answers': used to identify the element containing question answers</li>
-<li>'quizlib-question-warning': used by the 'unanswered question warning' element</li>
-<li>'quizlib-correct': added to question titles to highlight correctly answered questions. </li>
-<li>'quizlib-incorrect': added to question titles to highlight incorrectly answered questions.</li>
-</ul>
-
-<p>Basic HTML setup:</p>
-
-<ul>
-<li>Create a quiz container element containing child elements for each question. Each question element must use the 'question' class.</li>
-<li>Each question element must have a question title element using the class 'question-title'. The unanswered question warning will be appended to this element.</li>
-<li>Each question element must also have a question answers element using the class 'question-answers'. This element must contain answers that use the input tag. You can use any input type, quantity and structure you like.</li>
-<li>Each answer input must have an arbitrary value which will be used as its answer value.</li>
-</ul>
-
-<p><em>Example:</em>  </p>
-
-<pre><code>&lt;!-- Quiz Container --&gt;  
+                <!-- Quiz Results -->
+                <div id="quiz-results" class="card">
+                    You Scored <span id="quiz-percent"></span>% - <span id="quiz-score"></span>/<span id="quiz-max-score"></span><br/>
+                </div>
+                <div id="quiz">
+                    <!-- Question 1 -->
+                    <div class="card quizlib-question">
+                        <div class="quizlib-question-title">1. What is the answer to life, the universe and everything?</div>
+                        <div class="quizlib-question-answers">
+                            <input type="text" name="q1" value="Answer">
+                        </div>
+                    </div>
+                    <!-- Question 2 -->
+                    <div class="card quizlib-question">
+                        <div class="quizlib-question-title">2. Your enemy's mother...</div>
+                        <div class="quizlib-question-answers">
+                            <ul>
+                                <li><label><input type="radio" name="q2" value="a"> is a hamster</label></li>
+                                <li><label><input type="radio" name="q2" value="b"> smells of elderberries</label></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Question 3 -->
+                    <div class="card quizlib-question">
+                        <div class="quizlib-question-title">3. Which factors will contribute to the end of humanity as we know it?</div>
+                        <div class="quizlib-question-answers">
+                            <ul>
+                                <li><label><input type="checkbox" name="q3" value="a"> Global warming</label></li>
+                                <li><label><input type="checkbox" name="q3" value="b"> The release of Linux 4.1.15</label></li>
+                                <li><label><input type="checkbox" name="q3" value="c"> Cats</label></li>
+                                <li><label><input type="checkbox" name="q3" value="d"> Advancement of artificial intelligence</label></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Answer Button -->
+                    <button type="button" onclick="showResults();">Check Answers</button>
+                </div>
+                <br/><br/>
+                
+                <h2><a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+                
+                <h3><a id="html" class="anchor" href="#html" aria-hidden="true"><span class="octicon octicon-link"></span></a>HTML</h3>
+                <p><strong>1.</strong> Import quizlib.js (or quizlib.min.js) and the optional stylesheet.</p>
+                
+                <p>QuizLib makes use of the following classes as described below. Classes are not exclusive, so you can use your own alongside them:</p>
+                <ul>
+                    <li><strong>quizlib-question</strong>: used to identify a question element</li>
+                    <li><strong>quizlib-question-title</strong>: used to identify the question title element</li>
+                    <li><strong>quizlib-question-answers</strong>: used to identify the element containing question answers</li>
+                    <li><strong>quizlib-question-warning</strong>: used by the 'unanswered question warning' element</li>
+                    <li><strong>quizlib-correct</strong>: added to question titles to highlight correctly answered questions. </li>
+                    <li><strong>quizlib-incorrect</strong>: added to question titles to highlight incorrectly answered questions.</li>
+                </ul>
+                
+                <p><strong>2. Basic HTML setup:</strong></p>
+                <ul>
+                    <li>Create a <strong>quiz container element</strong> containing child elements for each question. Each question element must use the <strong>question</strong> class.</li>
+                    <li>Each question element must have a <strong>question title element</strong> using the class <strong>question-title</strong>. The unanswered question warning will be appended to this element.</li>
+                    <li>Each question element must also have a <strong>question answers element</strong> using the class <strong>question-answers</strong>. This element must contain answers that use the input tag. You can use any input type, quantity and structure you like.</li>
+                    <li>Each <strong>answer input</strong> must have an arbitrary value which will be used as its answer value.</li>
+                </ul>
+                
+                <p><strong>Example:</strong></p>
+<pre><code class="html">&lt;!-- Quiz Container --&gt;  
 &lt;div id="quiz-div"&gt;  
-    &lt;!-- Question 1 --&gt;  
-    &lt;div class="quizlib-question my-class"&gt;  
-        &lt;div class="quizlib-question-title"&gt;1. Question Title&lt;/div&gt;  
-        &lt;div class="quizlib-question-answers"&gt;  
-            &lt;!-- Answer structure can be as simple or as complicated as you like, only the input element matters to the library --&gt;
-            &lt;input type="radio" name="q1" value="a"&gt; Option 1&lt;br/&gt;
-            &lt;input type="radio" name="q1" value="b"&gt; Option 2&lt;br/&gt;
-        &lt;/div&gt;  
+&lt;!-- Question 1 --&gt;  
+&lt;div class="quizlib-question my-class"&gt;  
+    &lt;div class="quizlib-question-title"&gt;1. Question Title&lt;/div&gt;  
+    &lt;div class="quizlib-question-answers"&gt;  
+        &lt;!-- Answer structure can be as simple or as complicated as you like, only the input element matters to the library --&gt;
+        &lt;input type="radio" name="q1" value="a"&gt; Option 1&lt;br/&gt;
+        &lt;input type="radio" name="q1" value="b"&gt; Option 2&lt;br/&gt;
     &lt;/div&gt;  
-    &lt;!-- Question 2 --&gt;  
-    &lt;div class="quizlib-question my-class"&gt;  
-        &lt;div class="quizlib-question-title"&gt;2. Question Title&lt;/div&gt;  
-        &lt;div class="quizlib-question-answers"&gt;
-            &lt;ul&gt;  
-                &lt;li&gt;&lt;label&gt;&lt;input type="checkbox" name="q2" value="a"&gt; Option 1&lt;/label&gt;&lt;/li&gt;  
-                &lt;li&gt;&lt;label&gt;&lt;input type="checkbox" name="q2" value="b"&gt; Option 2&lt;/label&gt;&lt;/li&gt;  
-                &lt;li&gt;&lt;label&gt;&lt;input type="checkbox" name="q2" value="c"&gt; Option 3&lt;/label&gt;&lt;/li&gt;  
-                &lt;li&gt;&lt;label&gt;&lt;input type="checkbox" name="q2" value="d"&gt; Option 4&lt;/label&gt;&lt;/li&gt;  
-            &lt;/ul&gt;  
-        &lt;/div&gt;  
-    &lt;/div&gt;
-    &lt;!-- Answer Button --&gt;
-    &lt;button type="button" onclick="myAnswerCheckMethod();"&gt;Check Answers&lt;/button&gt;
+&lt;/div&gt;  
+&lt;!-- Question 2 --&gt;  
+&lt;div class="quizlib-question my-class"&gt;  
+    &lt;div class="quizlib-question-title"&gt;2. Question Title&lt;/div&gt;  
+    &lt;div class="quizlib-question-answers"&gt;
+        &lt;ul&gt;  
+            &lt;li&gt;&lt;label&gt;&lt;input type="checkbox" name="q2" value="a"&gt; Option 1&lt;/label&gt;&lt;/li&gt;  
+            &lt;li&gt;&lt;label&gt;&lt;input type="checkbox" name="q2" value="b"&gt; Option 2&lt;/label&gt;&lt;/li&gt;  
+            &lt;li&gt;&lt;label&gt;&lt;input type="checkbox" name="q2" value="c"&gt; Option 3&lt;/label&gt;&lt;/li&gt;  
+            &lt;li&gt;&lt;label&gt;&lt;input type="checkbox" name="q2" value="d"&gt; Option 4&lt;/label&gt;&lt;/li&gt;  
+        &lt;/ul&gt;  
+    &lt;/div&gt;  
+&lt;/div&gt;
+&lt;!-- Answer Button --&gt;
+&lt;button type="button" onclick="myAnswerCheckMethod();"&gt;Check Answers&lt;/button&gt;
 &lt;/div&gt;
 </code></pre>
-
-<p><strong>JavaScript</strong>  </p>
-
-<ul>
-<li>Create a new Quiz object where the first parameter is the ID of your quiz container and the second parameter is an array of question answers (input values) in order.</li>
-<li>To check answers, call Quiz.checkAnswers which returns false if some questions have been skipped and marks them with a message appended to the title. Otherwise returns true and updates Quiz.result</li>
-<li>You can then access score data through Quiz.result which is a QuizResult object.</li>
-</ul>
-
-<p><em>Example</em><br>
-Create the quiz instance  </p>
-
-<pre><code>var quiz = new Quiz('quiz-div', ['a', ['b', 'c', 'd']]);
-</code></pre>
-
-<p>Create a method to check the answers</p>
-
-<pre><code>function myAnswerCheckMethod() {
+                <br/>
+                <h3><a id="javascript" class="anchor" href="#javascript" aria-hidden="true"><span class="octicon octicon-link"></span></a>JavaScript</h3>
+                Create a new Quiz object where the first parameter is the ID of your quiz container and the second parameter is an array of question answers (input values) in order.
+                <ul> 
+                    <li>To check answers, call Quiz.checkAnswers which returns false if some questions have been skipped and marks them with a message appended to the title. Otherwise returns true and updates Quiz.result</li>
+                    <li>You can then access score data through Quiz.result which is a QuizResult object.</li>
+                </ul>
+                
+                <p><strong>Example</strong><br>
+                Create the quiz instance</p>
+<pre><code class="javascript">var quiz = new Quiz('quiz-div', ['a', ['b', 'c', 'd']]);</code></pre>
+                
+                <p>Create a method to check the answers</p>
+<pre><code class="javascript">function myAnswerCheckMethod() {
     // checkAnswers returns true if all questions have been answered and updates the result object
     if (quiz.checkAnswers()) {
-        console.log('Correct answers: ' + quiz.result.score + '/' + quiz.result.results.length);
+        console.log('Correct answers: ' + quiz.result.score + '/' + quiz.result.totalQuestions);
         console.log('Percent correct: ' + quiz.result.scorePercentFormatted + '%');
     }
+        
+    // Alternatively, we can ignore unanswered questions by passing false
+    quiz.checkAnswers(false);
+    console.log('Correct answers: ' + quiz.result.score + '/' + quiz.result.totalQuestions);
+    console.log('Percent correct: ' + quiz.result.scorePercentFormatted + '%');
+}
 </code></pre>
+                <br/>
+                
+                <h2><a id="docs" class="anchor" href="#docs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Docs</h2>
+            </section>
+                
+            <aside id="sidebar">
+                <a href="https://github.com/ALPSquid/quizlib/zipball/master" class="button">
+                    <small>Download</small>.zip file
+                </a>
+                <a href="https://github.com/ALPSquid/quizlib/tarball/master" class="button">
+                    <small>Download</small>.tar.gz file
+                </a>
+                
+                <p class="repo-owner"><a href="https://github.com/ALPSquid/quizlib"></a> maintained by <a href="https://github.com/ALPSquid">ALPSquid</a>.</p>
+                <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+            </aside>
+        </div>
+        </div>
 
-<h2>
-<a id="docs" class="anchor" href="#docs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Docs</h2>
-        </section>
-
-        <aside id="sidebar">
-          <a href="https://github.com/ALPSquid/quizlib/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/ALPSquid/quizlib/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
-
-          <p class="repo-owner"><a href="https://github.com/ALPSquid/quizlib"></a> is maintained by <a href="https://github.com/ALPSquid">ALPSquid</a>.</p>
-
-          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
-    </div>
-
-            <script type="text/javascript">
+        <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-          </script>
-          <script type="text/javascript">
-            try {
-              var pageTracker = _gat._getTracker("UA-32316021-5");
-            pageTracker._trackPageview();
-            } catch(err) {}
-          </script>
 
-  </body>
+            hljs.initHighlightingOnLoad();
+        </script>
+        <script type="text/javascript">
+        try {
+            var pageTracker = _gat._getTracker("UA-32316021-5");
+            pageTracker._trackPageview();
+        } catch(err) {}
+        </script>
+
+    </body>
 </html>
