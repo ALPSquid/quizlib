@@ -1,77 +1,7 @@
 /**
  * Class that represents an HTML Quiz. Provides methods for checking answers and generating a score.  
  *
- * To use:  
- * *Note:* Required classes are not exclusive; you can still use your own classes alongside them.  
- *
- * **HTML**  
- * Import the QuizLib.js script and optional QuizLibStyle.css stylesheet. The stylesheet provides basic formatting but styling is left open to you.
- * - Create a quiz container element containing child elements for each question. Each question element must use the 'question' class.
- * - Each question element must have a question title element using the class 'question-title'. The unanswered question warning will be appended to this element.
- * - Each question element must also have a question answers element using the class 'question-answers'. This element must contain answers that use the input tag. You can use any input type, quantity and structure you like.
- * - Each answer input must have an arbitrary value which will be used as its answer value.
- * 
- * QuizLib makes use of the following classes (See {{#crossLink "Quiz/Classes:property"}}{{/crossLink}}):
- * - 'quizlib-question': used to identify a question element
- * - 'quizlib-question-title': used to identify the question title element
- * - 'quizlib-question-answers': used to identify the element containing question answers
- * - 'quizlib-question-warning': used by the 'unanswered question warning' element
- * - 'quizlib-correct': added to question titles to highlight correctly answered questions. 
- *    Use freely to take advantage of {{#crossLink "Quiz/highlightResults:method"}}{{/crossLink}} and {{#crossLink "Quiz/clearHighlights:method"}}{{/crossLink}}
- * - 'quizlib-incorrect': added to question titles to highlight incorrectly answered questions.
- *    Use freely to take advantage of {{#crossLink "Quiz/highlightResults:method"}}{{/crossLink}} and {{#crossLink "Quiz/clearHighlights:method"}}{{/crossLink}}
- *
- * *Example:*  
- * ```
- * <!-- Quiz Container -->  
- * <div id="quiz-div">  
- *     <!-- Question 1 -->  
- *     <div class="quizlib-question my-class">  
- *         <div class="quizlib-question-title">1. Question Title</div>  
- *         <div class="quizlib-question-answers">  
- *             <!-- Answer structure can be as simple or as complicated as you like, only the input element matters to the library -->
- *             <input type="radio" name="q1" value="a"> Option 1<br/>
- *             <input type="radio" name="q1" value="b"> Option 2<br/>
- *         </div>  
- *     </div>  
- *     <!-- Question 2 -->  
- *     <div class="quizlib-question my-class">  
- *         <div class="quizlib-question-title">2. Question Title</div>  
- *         <div class="quizlib-question-answers">
- *             <ul>  
- *                 <li><label><input type="checkbox" name="q2" value="a"> Option 1</label></li>  
- *                 <li><label><input type="checkbox" name="q2" value="b"> Option 2</label></li>  
- *                 <li><label><input type="checkbox" name="q2" value="c"> Option 3</label></li>  
- *                 <li><label><input type="checkbox" name="q2" value="d"> Option 4</label></li>  
- *             </ul>  
- *         </div>  
- *     </div>
- *     <!-- Answer Button -->
- *     <button type="button" onclick="myAnswerCheckMethod();">Check Answers</button>
- * </div>
- * ```
- * 
- *
- * **JavaScript**  
- * - Create a new Quiz object where the first parameter is the ID of your quiz container and the second parameter is an array of question answers (input values) in order.
- * - To check answers, call {{#crossLink "Quiz/checkAnswers:method"}}{{/crossLink}} which returns false if some questions have been skipped and marks them with a message appended to the title. Otherwise returns true and updates {{#crossLink "Quiz/result:property"}}{{/crossLink}}
- * - You can then access score data through {{#crossLink "Quiz/result:property"}}{{/crossLink}} which is a {{#crossLink "QuizResult"}}{{/crossLink}} object.
- * 
- * *Example*  
- * 
- * Create the quiz instance  
- * ```
- * var quiz = new Quiz('quiz-div', ['a', ['b', 'c', 'd']]);
- * ```  
- * Create a method to check the answers
- * ```
- * function myAnswerCheckMethod() {
- *     // checkAnswers returns true if all questions have been answered and updates the result object
- *     if (quiz.checkAnswers()) {
- *         console.log('Correct answers: ' + quiz.result.score + '/' + quiz.result.results.length);
- *         console.log('Percent correct: ' + quiz.result.scorePercentFormatted + '%');
- *     }
- * ```
+ * See https://alpsquid.github.io/quizlib for usage
  *
  * @class Quiz
  * @constructor
@@ -112,14 +42,14 @@ var Quiz = function(quizContainer, answers) {
 		CORRECT: "quizlib-correct",
 		INCORRECT: "quizlib-incorrect"
 	});
-	
-	/*this.QUESTION_CLASS = 'quizlib-question';
-	this.QUESTION_TITLE_CLASS= 'quizlib-question-title';
-	this.ANSWER_CLASS = 'quizlib-question-answers';
-	this.QUESTION_WARNING_CLASS = 'quizlib-question-warning';
-	this.CORRECT_CLASS = 'quizlib-correct';
-	this.INCORRECT_CLASS = 'quizlib-incorrect';*/
 
+	/**
+	 * Warning displayed on unanswered questions
+	 *
+	 * @property unansweredQuestionText
+	 * @type String
+	 * @default 'Unanswered Question!'
+	 */
 	this.unansweredQuestionText = 'Unanswered Question!';
 
 	// Quiz container element
