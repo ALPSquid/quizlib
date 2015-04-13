@@ -1,0 +1,19 @@
+{
+  "name": "quizlib",
+  "description": "Simple JavaScript quiz library for creating HTML quizes",
+  "version": "0.0.1",
+  "homepage": "https://github.com/ALPSquid/quizlib",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt-contrib-cssmin": "^0.12.2",
+    "grunt-contrib-jshint": "^0.11.1",
+    "grunt-contrib-uglify": "^0.9.1",
+    "grunt-contrib-yuidoc": "^0.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ALPSquid/quizlib.git"
+  }
+}
