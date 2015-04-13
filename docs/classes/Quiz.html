@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Quiz - quizlib</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="../assets/css/logo.png" title="quizlib" width="117" height="52"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.0.1</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/Quiz.html">Quiz</a></li>
+                                <li><a href="../classes/QuizResult.html">QuizResult</a></li>
+                                <li><a href="../classes/Utils.html">Utils</a></li>
+                            </ul>
+                
+                            <ul id="api-modules" class="apis modules">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1>Quiz Class</h1>
+<div class="box meta">
+
+
+        <div class="foundat">
+            Defined in: <a href="../files/src_quizlib.js.html#l1"><code>src&#x2F;quizlib.js:1</code></a>
+        </div>
+
+
+</div>
+
+
+<div class="box intro">
+    <p>Class that represents an HTML Quiz. Provides methods for checking answers and generating a score.  </p>
+<p>To use:<br><em>Note:</em> Required classes are not exclusive; you can still use your own classes alongside them.  </p>
+<p><strong>HTML</strong><br>Import the QuizLib.js script and optional QuizLibStyle.css stylesheet. The stylesheet provides basic formatting but styling is left open to you.</p>
+<ul>
+<li>Create a quiz container element containing child elements for each question. Each question element must use the &#39;question&#39; class.</li>
+<li>Each question element must have a question title element using the class &#39;question-title&#39;. The unanswered question warning will be appended to this element.</li>
+<li>Each question element must also have a question answers element using the class &#39;question-answers&#39;. This element must contain answers that use the input tag. You can use any input type, quantity and structure you like.</li>
+<li>Each answer input must have an arbitrary value which will be used as its answer value.</li>
+</ul>
+<p>QuizLib makes use of the following classes (See <a href="../classes/Quiz.html#property_Classes" class="crosslink">Classes</a>):</p>
+<ul>
+<li>&#39;quizlib-question&#39;: used to identify a question element</li>
+<li>&#39;quizlib-question-title&#39;: used to identify the question title element</li>
+<li>&#39;quizlib-question-answers&#39;: used to identify the element containing question answers</li>
+<li>&#39;quizlib-question-warning&#39;: used by the &#39;unanswered question warning&#39; element</li>
+<li>&#39;quizlib-correct&#39;: added to question titles to highlight correctly answered questions. 
+ Use freely to take advantage of <a href="../classes/Quiz.html#method_highlightResults" class="crosslink">highlightResults</a> and <a href="../classes/Quiz.html#method_clearHighlights" class="crosslink">clearHighlights</a></li>
+<li>&#39;quizlib-incorrect&#39;: added to question titles to highlight incorrectly answered questions.
+ Use freely to take advantage of <a href="../classes/Quiz.html#method_highlightResults" class="crosslink">highlightResults</a> and <a href="../classes/Quiz.html#method_clearHighlights" class="crosslink">clearHighlights</a></li>
+</ul>
+<p><em>Example:</em>  </p>
+<pre class="code prettyprint"><code>&lt;!-- Quiz Container --&gt;  
+&lt;div id="quiz-div"&gt;  
+    &lt;!-- Question 1 --&gt;  
+    &lt;div class="quizlib-question my-class"&gt;  
+        &lt;div class="quizlib-question-title"&gt;1. Question Title&lt;/div&gt;  
+        &lt;div class="quizlib-question-answers"&gt;  
+            &lt;!-- Answer structure can be as simple or as complicated as you like, only the input element matters to the library --&gt;
+            &lt;input type="radio" name="q1" value="a"&gt; Option 1&lt;br/&gt;
+            &lt;input type="radio" name="q1" value="b"&gt; Option 2&lt;br/&gt;
+        &lt;/div&gt;  
+    &lt;/div&gt;  
+    &lt;!-- Question 2 --&gt;  
+    &lt;div class="quizlib-question my-class"&gt;  
+        &lt;div class="quizlib-question-title"&gt;2. Question Title&lt;/div&gt;  
+        &lt;div class="quizlib-question-answers"&gt;
+            &lt;ul&gt;  
+                &lt;li&gt;&lt;label&gt;&lt;input type="checkbox" name="q2" value="a"&gt; Option 1&lt;/label&gt;&lt;/li&gt;  
+                &lt;li&gt;&lt;label&gt;&lt;input type="checkbox" name="q2" value="b"&gt; Option 2&lt;/label&gt;&lt;/li&gt;  
+                &lt;li&gt;&lt;label&gt;&lt;input type="checkbox" name="q2" value="c"&gt; Option 3&lt;/label&gt;&lt;/li&gt;  
+                &lt;li&gt;&lt;label&gt;&lt;input type="checkbox" name="q2" value="d"&gt; Option 4&lt;/label&gt;&lt;/li&gt;  
+            &lt;/ul&gt;  
+        &lt;/div&gt;  
+    &lt;/div&gt;
+    &lt;!-- Answer Button --&gt;
+    &lt;button type="button" onclick="myAnswerCheckMethod();"&gt;Check Answers&lt;/button&gt;
+&lt;/div&gt;
+</code></pre><p><strong>JavaScript</strong>  </p>
+<ul>
+<li>Create a new Quiz object where the first parameter is the ID of your quiz container and the second parameter is an array of question answers (input values) in order.</li>
+<li>To check answers, call <a href="../classes/Quiz.html#method_checkAnswers" class="crosslink">checkAnswers</a> which returns false if some questions have been skipped and marks them with a message appended to the title. Otherwise returns true and updates <a href="../classes/Quiz.html#property_result" class="crosslink">result</a></li>
+<li>You can then access score data through <a href="../classes/Quiz.html#property_result" class="crosslink">result</a> which is a <a href="../classes/QuizResult.html" class="crosslink">QuizResult</a> object.</li>
+</ul>
+<p><em>Example</em>  </p>
+<p>Create the quiz instance  </p>
+<pre class="code prettyprint"><code>var quiz = new Quiz(&#39;quiz-div&#39;, [&#39;a&#39;, [&#39;b&#39;, &#39;c&#39;, &#39;d&#39;]]);
+</code></pre><p>Create a method to check the answers</p>
+<pre class="code prettyprint"><code>function myAnswerCheckMethod() {
+    // checkAnswers returns true if all questions have been answered and updates the result object
+    if (quiz.checkAnswers()) {
+        console.log(&#39;Correct answers: &#39; + quiz.result.score + &#39;/&#39; + quiz.result.results.length);
+        console.log(&#39;Percent correct: &#39; + quiz.result.scorePercentFormatted + &#39;%&#39;);
+    }
+</code></pre>
+</div>
+
+    <div class="constructor">
+        <h2>Constructor</h2>
+        <div id="method_Quiz" class="method item">
+            <h3 class="name"><code>Quiz</code></h3>
+        
+                <div class="args">
+                    <span class="paren">(</span><ul class="args-list inline commas">
+                        <li class="arg">
+                                <code>quizContainer</code>
+                        </li>
+                        <li class="arg">
+                                <code>answers</code>
+                        </li>
+                    </ul><span class="paren">)</span>
+                </div>
+        
+        
+        
+        
+        
+        
+        
+        
+            <div class="meta">
+                        <p>
+                        Defined in
+                <a href="../files/src_quizlib.js.html#l1"><code>src&#x2F;quizlib.js:1</code></a>
+                </p>
+        
+        
+        
+            </div>
+        
+            <div class="description">
+                
+            </div>
+        
+                <div class="params">
+                    <h4>Parameters:</h4>
+        
+                    <ul class="params-list">
+                        <li class="param">
+                                <code class="param-name">quizContainer</code>
+                                <span class="type">String</span>
+        
+        
+                            <div class="param-description">
+                                <p>ID of the quiz container.</p>
+        
+                            </div>
+        
+                        </li>
+                        <li class="param">
+                                <code class="param-name">answers</code>
+                                <span class="type">Array</span>
+        
+        
+                            <div class="param-description">
+                                <p>Array of correct answers using the input value. e.g. [&#39;a&#39;, &#39;b&#39;, [&#39;a&#39;, &#39;b&#39;]].
+               Can use nested arrays for multi-answers such as checkbox questions</p>
+        
+                            </div>
+        
+                        </li>
+                    </ul>
+                </div>
+        
+        
+        
+                <div class="example">
+                    <h4>Example:</h4>
+        
+                    <div class="example-content">
+                        <pre class="code prettyprint"><code>    new Quiz(&#39;quiz-div&#39;, [&#39;a&#39;, &#39;b&#39;, [&#39;c&#39;, &#39;d&#39;], &#39;b&#39;, [&#39;a&#39;, &#39;b&#39;]]);
+        </code></pre>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
+
+            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
+            <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
+    </ul>
+
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
+
+                <div class="index-section methods">
+                    <h3>Methods</h3>
+
+                    <ul class="index-list methods">
+                            <li class="index-item method">
+                                <a href="#method_checkAnswers">checkAnswers</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_clearHighlights">clearHighlights</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_highlightResults">highlightResults</a>
+
+                            </li>
+                    </ul>
+                </div>
+
+                <div class="index-section properties">
+                    <h3>Properties</h3>
+
+                    <ul class="index-list properties">
+                            <li class="index-item property">
+                                <a href="#property_answers">answers</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_Classes">Classes</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_result">result</a>
+
+                            </li>
+                    </ul>
+                </div>
+
+
+        </div>
+
+            <div id="methods" class="api-class-tabpanel">
+                <h2 class="off-left">Methods</h2>
+
+<div id="method_checkAnswers" class="method item">
+    <h3 class="name"><code>checkAnswers</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code class="optional">[flagUnanswered=true]</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/src_quizlib.js.html#l155"><code>src&#x2F;quizlib.js:155</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Checks quiz answers against provided answers. Calls <a href="../classes/Quiz.html#method_clearHighlights" class="crosslink">clearHighlights</a> for each question.</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name optional">[flagUnanswered=true]</code>
+                        <span class="type">Boolean</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+                    <div class="param-description">
+                        <p>Whether to ignore unanswered questions. If false, unanswered questions will not be flagged</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Boolean</span>:
+                    <p>True or if <em>flagUnanswered</em> is true: True if all questions have been answered. Otherwise false and unanswered questions are highlighted.</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method_clearHighlights" class="method item">
+    <h3 class="name"><code>clearHighlights</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>question</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/src_quizlib.js.html#l206"><code>src&#x2F;quizlib.js:206</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Clears highlighting for a question element (correct and incorrect classes), including unanswered question warnings</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">question</code>
+                        <span class="type">HTMLDocument</span>
+
+
+                    <div class="param-description">
+                        <p>Question element to clear</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_highlightResults" class="method item">
+    <h3 class="name"><code>highlightResults</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code class="optional">[questionCallback]</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/src_quizlib.js.html#l231"><code>src&#x2F;quizlib.js:231</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Highlights correctly and incorrectly answered questions by:  </p>
+<ul>
+<li>Adding the class &#39;quizlib-correct&#39; to correctly answered question titles</li>
+<li>Adding the class &#39;quizlib-incorrect&#39; to incorrectly answered question titles</li>
+</ul>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name optional">[questionCallback]</code>
+                        <span class="type">Function</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+                    <div class="param-description">
+                        <p>Optional callback for each question with the following arguments:</p>
+<ol>
+<li>Element: the question element</li>
+<li>Number: question number</li>
+<li>Boolean: true if correct, false if incorrect.  </li>
+</ol>
+<p>This allows you to further customise the handling of answered questions (and decouples the library from a specific HTML structure), for example highlighting the correct answer(s) on incorrect questions.</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>   // Method Call
+   quiz.highlightResults(handleAnswers);
+
+   // handleAnswers callback
+   function handleAnswers(questionElement, questionNo, correctFlag) {
+       ...
+   }
+</code></pre>
+            </div>
+        </div>
+</div>
+            </div>
+
+            <div id="properties" class="api-class-tabpanel">
+                <h2 class="off-left">Properties</h2>
+
+                    <div id="property_answers" class="property item">
+                        <h3 class="name"><code>answers</code></h3>
+                        <span class="type">Array</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_quizlib.js.html#l135"><code>src&#x2F;quizlib.js:135</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>User defined answers taken from constructor</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_Classes" class="property item">
+                        <h3 class="name"><code>Classes</code></h3>
+                        <span class="type">Object</span>
+                    
+                    
+                    
+                            <span class="flag final">final</span>
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_quizlib.js.html#l85"><code>src&#x2F;quizlib.js:85</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Enum containing classes used by QuizLib as follows:</p>
+                    <ul>
+                    <li><strong>QUESTION</strong>: &#39;quizlib-question&#39;<ul>
+                    <li>used to identify a question element</li>
+                    </ul>
+                    </li>
+                    <li><strong>QUESTION_TITLE</strong>: &#39;quizlib-question-title&#39;<ul>
+                    <li>used to identify the question title element</li>
+                    </ul>
+                    </li>
+                    <li><strong>QUESTION_WARNING</strong>: &#39;quizlib-question-answers&#39;<ul>
+                    <li>used to identify the element containing question answers</li>
+                    </ul>
+                    </li>
+                    <li><strong>QUESTION_ANSWERS</strong>: &#39;quizlib-question-warning&#39;<ul>
+                    <li>used by the &#39;unanswered question warning&#39; element</li>
+                    </ul>
+                    </li>
+                    <li><strong>CORRECT</strong>: &#39;quizlib-correct&#39;<ul>
+                    <li>added to question titles to highlight correctly answered questions.<br>Use freely to take advantage of <a href="../classes/Quiz.html#method_highlightResults" class="crosslink">highlightResults</a> and <a href="../classes/Quiz.html#method_clearHighlights" class="crosslink">clearHighlights</a></li>
+                    </ul>
+                    </li>
+                    <li><strong>INCORRECT</strong>: &#39;quizlib-incorrect&#39;<ul>
+                    <li>added to question titles to highlight incorrectly answered questions.<br>Use freely to take advantage of <a href="../classes/Quiz.html#method_highlightResults" class="crosslink">highlightResults</a> and <a href="../classes/Quiz.html#method_clearHighlights" class="crosslink">clearHighlights</a></li>
+                    </ul>
+                    </li>
+                    </ul>
+                    
+                        </div>
+                    
+                            <p><strong>Default:</strong> See above</p>
+                    
+                    
+                    </div>
+                    <div id="property_result" class="property item">
+                        <h3 class="name"><code>result</code></h3>
+                        <span class="type"><a href="../classes/QuizResult.html" class="crosslink">QuizResult</a></span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_quizlib.js.html#l128"><code>src&#x2F;quizlib.js:128</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Quiz Result object containing quiz score information. See <a href="../classes/QuizResult.html" class="crosslink">QuizResult</a></p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+            </div>
+
+
+    </div>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
