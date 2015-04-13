@@ -34,7 +34,7 @@ function handleAnswers(question, no, correct) {
 window.onload = function() {
     quiz = new Quiz('quiz', [
         '42',
-        'a',
+        'b',
         ['b', 'c', 'd']
     ]);
 };
