@@ -1,2 +1,2 @@
 # quizlib
-Simple JavaScript library for creating HTML quizes. Created for a university assignment.
+A simple JavaScript library for creating HTML quizzes. Created for a university assignment.
