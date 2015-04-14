@@ -203,12 +203,11 @@ Quiz.prototype.highlightResults = function(questionCallback) {
 		question = this.questions[i];
 		if (this.result.results[i]) {
 			question.getElementsByClassName(this.Classes.QUESTION_TITLE)[0].classList.add(this.Classes.CORRECT);
-			if (questionCallback !== undefined) questionCallback(question, i, true);
 		}
 		else {
 			question.getElementsByClassName(this.Classes.QUESTION_TITLE)[0].classList.add(this.Classes.INCORRECT);
-			if (questionCallback !== undefined) questionCallback(question, i, false);
 		}
+		if (questionCallback !== undefined) questionCallback(question, i, this.result.results[i]);
 	}
 };
 
