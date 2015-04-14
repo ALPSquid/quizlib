@@ -34,6 +34,7 @@ function handleAnswers(question, no, correct) {
                 default:
                     var correctAnswer = document.createElement('span');
                     correctAnswer.classList.add(quiz.Classes.CORRECT);
+                    correctAnswer.classList.add(quiz.Classes.TEMP);
                     correctAnswer.innerHTML = quiz.answers[no];
                     correctAnswer.style.marginLeft = '10px';
                     answers[i].parentNode.insertBefore(correctAnswer, answers[i].nextSibling);
