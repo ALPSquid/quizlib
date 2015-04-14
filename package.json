@@ -1,6 +1,6 @@
 {
   "name": "quizlib",
-  "description": "Simple JavaScript quiz library for creating HTML quizes",
+  "description": "Simple JavaScript quiz library for creating HTML quizzes",
   "version": "1.0.0",
   "homepage": "https://github.com/ALPSquid/quizlib",
   "devDependencies": {
