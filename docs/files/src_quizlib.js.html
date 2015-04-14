@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="quizlib" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 0.0.1</em>
+            <em>API Docs for: 1.0.0</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -82,17 +82,17 @@
 <div class="file">
     <pre class="code prettyprint linenums">
 /**
- * Class that represents an HTML Quiz. Provides methods for checking answers and generating a score.  
+ * Class that represents an HTML Quiz. Provides methods for checking answers, generating a score and providing visual feedback.  
  *
  * See https://alpsquid.github.io/quizlib for usage
  *
  * @class Quiz
  * @constructor
- * @param {String} quizContainer ID of the quiz container.
- * @param {Array} answers Array of correct answers using the input value. e.g. [&#x27;a&#x27;, &#x27;b&#x27;, [&#x27;a&#x27;, &#x27;b&#x27;]].
+ * @param {String} quizContainer ID of the quiz container element.
+ * @param {Array} answers Array of correct answers using the input value. e.g. [&#x27;a&#x27;, &#x27;7&#x27;, [&#x27;a&#x27;, &#x27;b&#x27;]].
  *        Can use nested arrays for multi-answers such as checkbox questions
  * @example
- * 		new Quiz(&#x27;quiz-div&#x27;, [&#x27;a&#x27;, &#x27;b&#x27;, [&#x27;c&#x27;, &#x27;d&#x27;], &#x27;b&#x27;, [&#x27;a&#x27;, &#x27;b&#x27;]]);
+ * 		new Quiz(&#x27;quiz-div&#x27;, [&#x27;a&#x27;, &#x27;7&#x27;, [&#x27;c&#x27;, &#x27;d&#x27;], &#x27;squids&#x27;, [&#x27;a&#x27;, &#x27;b&#x27;]]);
  */
 var Quiz = function(quizContainer, answers) {
 	/**
@@ -104,13 +104,16 @@ var Quiz = function(quizContainer, answers) {
 	 * - **QUESTION_WARNING**: &#x27;quizlib-question-answers&#x27;
 	 *   - used to identify the element containing question answers
 	 * - **QUESTION_ANSWERS**: &#x27;quizlib-question-warning&#x27;
-	 *   - used by the &#x27;unanswered question warning&#x27; element
+	 *   - used by the &#x27;unanswered question warning&#x27; element. Removed by {{#crossLink &quot;Quiz/clearHighlights:method&quot;}}{{/crossLink}}
 	 * - **CORRECT**: &#x27;quizlib-correct&#x27;
 	 *   - added to question titles to highlight correctly answered questions.  
 	 *     Use freely to take advantage of {{#crossLink &quot;Quiz/highlightResults:method&quot;}}{{/crossLink}} and {{#crossLink &quot;Quiz/clearHighlights:method&quot;}}{{/crossLink}}
 	 * - **INCORRECT**: &#x27;quizlib-incorrect&#x27;
 	 *   - added to question titles to highlight incorrectly answered questions.  
 	 *     Use freely to take advantage of {{#crossLink &quot;Quiz/highlightResults:method&quot;}}{{/crossLink}} and {{#crossLink &quot;Quiz/clearHighlights:method&quot;}}{{/crossLink}}
+	 * - **TEMP**: &#x27;quizlib-temp&#x27;
+	 *   - Add to any elements you want to be removed by {{#crossLink &quot;Quiz/clearHighlights:method&quot;}}{{/crossLink}} (called by {{#crossLink &quot;Quiz/checkAnswers:method&quot;}}{{/crossLink}}).
+	 *     For example, adding an element with the correct answer in your {{#crossLink &quot;Quiz/clearHighlights:method&quot;}}{{/crossLink}} callback and have it be removed automatically
 	 * 
 	 * @property Classes
 	 * @type Object
@@ -123,7 +126,8 @@ var Quiz = function(quizContainer, answers) {
 		QUESTION_ANSWERS: &quot;quizlib-question-answers&quot;,
 		QUESTION_WARNING: &quot;quizlib-question-warning&quot;,
 		CORRECT: &quot;quizlib-correct&quot;,
-		INCORRECT: &quot;quizlib-incorrect&quot;
+		INCORRECT: &quot;quizlib-incorrect&quot;,
+		TEMP: &quot;quizlib-temp&quot;
 	});
 
 	/**
@@ -188,13 +192,10 @@ Quiz.prototype.checkAnswers = function(flagUnanswered) {
 		var input;
 		for (var k=0; k &lt; answerInputs.length; k++) {
 			input = answerInputs[k];
-			switch (input.type) {
-				case &quot;checkbox&quot;:
-				case &quot;radio&quot;:
-					if (input.checked) userAnswer.push(input.value);
-					break;
-				default:
-					if (input.value !== &#x27;&#x27;) userAnswer.push(input.value);
+			if (input.type === &quot;checkbox&quot; || input.type === &quot;radio&quot;) {
+				 if (input.checked) userAnswer.push(input.value);
+			} else if (input.value !== &#x27;&#x27;) {
+				userAnswer.push(input.value);
 			}
 		}
 		// Remove single answer from array to match provided answer format
@@ -224,7 +225,7 @@ Quiz.prototype.checkAnswers = function(flagUnanswered) {
 };
 
 /**
- * Clears highlighting for a question element (correct and incorrect classes), including unanswered question warnings
+ * Clears highlighting for a question element (correct and incorrect classes), including unanswered question warnings and elements using the Classes.TEMP class
  * 
  * @method clearHighlights
  * @param {HTMLDocument} question Question element to clear
@@ -232,8 +233,8 @@ Quiz.prototype.checkAnswers = function(flagUnanswered) {
 Quiz.prototype.clearHighlights = function(question) {
 	// Remove question warning if it exists
 	var questionWarnings = question.getElementsByClassName(this.Classes.QUESTION_WARNING);
-	for (var i=0; i &lt; questionWarnings.length; i++) {
-		question.getElementsByClassName(this.Classes.QUESTION_TITLE)[0].removeChild(questionWarnings[i]);
+	while (questionWarnings.length &gt; 0) {
+		questionWarnings[0].parentNode.removeChild(questionWarnings[0]);
 	}
 	
 	// Remove highlighted elements
@@ -245,6 +246,12 @@ Quiz.prototype.clearHighlights = function(question) {
 			highlightedElement.classList.remove(this.Classes.CORRECT);
 			highlightedElement.classList.remove(this.Classes.INCORRECT);
 		}
+	}
+	
+	// Remove temp elements
+	var tempElements = question.getElementsByClassName(this.Classes.TEMP);
+	while (tempElements.length &gt; 0) {
+		tempElements[0].parentNode.removeChild(tempElements[0]);
 	}
 };
 
@@ -259,7 +266,8 @@ Quiz.prototype.clearHighlights = function(question) {
  * 2. Number: question number
  * 3. Boolean: true if correct, false if incorrect.  
  * 
- * This allows you to further customise the handling of answered questions (and decouples the library from a specific HTML structure), for example highlighting the correct answer(s) on incorrect questions.
+ * This allows you to further customise the handling of answered questions (and decouples the library from a specific HTML structure), for example highlighting the correct answer(s) on incorrect questions.  
+ * Use the Classes.TEMP (&#x27;quizlib-temp&#x27;) class on added elements that you want removing when {{#crossLink &quot;Quiz/checkAnswers:method&quot;}}{{/crossLink}} is called
  * 
  * @example
  * &#x60;&#x60;&#x60;
