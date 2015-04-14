@@ -226,9 +226,9 @@ var QuizResult = function() {
 	 */
 	this.results = [];
 	/**
-	 * Number of questions answered correctly. Updated by {{#crossLink "QuizResult/setResults:method"}}{{/crossLink}}
-	 * @property results
-	 * @type Array
+	 * Total number of questions. Updated by {{#crossLink "QuizResult/setResults:method"}}{{/crossLink}}
+	 * @property totalQuestions
+	 * @type Number
 	 */
 	this.totalQuestions = 0;
 	/**
