@@ -57,7 +57,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src/quizlib.js",
-            "line": 216,
+            "line": 215,
             "description": "Quiz Result class that holds score information",
             "is_constructor": 1
         },
@@ -70,7 +70,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src/quizlib.js",
-            "line": 273,
+            "line": 272,
             "description": "Utils class that provides useful methods"
         }
     },
@@ -171,7 +171,7 @@
         },
         {
             "file": "src/quizlib.js",
-            "line": 223,
+            "line": 222,
             "description": "Array of booleans where the index is the question number and the value is whether the question was answered correctly. Updated by {{#crossLink \"QuizResult/setResults:method\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "results",
@@ -180,7 +180,7 @@
         },
         {
             "file": "src/quizlib.js",
-            "line": 229,
+            "line": 228,
             "description": "Number of questions answered correctly. Updated by {{#crossLink \"QuizResult/setResults:method\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "results",
@@ -189,7 +189,7 @@
         },
         {
             "file": "src/quizlib.js",
-            "line": 235,
+            "line": 234,
             "description": "Number of questions answered correctly. Updated by {{#crossLink \"QuizResult/setResults:method\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "score",
@@ -198,7 +198,7 @@
         },
         {
             "file": "src/quizlib.js",
-            "line": 241,
+            "line": 240,
             "description": "Percentage score between 0 and 1. Updated by {{#crossLink \"QuizResult/setResults:method\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "scorePercent",
@@ -207,7 +207,7 @@
         },
         {
             "file": "src/quizlib.js",
-            "line": 247,
+            "line": 246,
             "description": "Formatted score percent that's more useful to humans (1 - 100). Percent is rounded down. Updated by {{#crossLink \"QuizResult/setResults:method\"}}{{/crossLink}}",
             "itemtype": "property",
             "name": "scorePercentFormatted",
@@ -216,7 +216,7 @@
         },
         {
             "file": "src/quizlib.js",
-            "line": 255,
+            "line": 254,
             "description": "Calculates score information from an array of question results and updates properties",
             "itemtype": "method",
             "name": "setResults",
@@ -231,7 +231,7 @@
         },
         {
             "file": "src/quizlib.js",
-            "line": 279,
+            "line": 278,
             "description": "Compare two objects without coercion. If objects are arrays, their contents will be compared, including order.",
             "itemtype": "method",
             "name": "compare",
