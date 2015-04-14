@@ -91,8 +91,12 @@
                 
                 <h2><a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
                 
+                <h3>Compatibility</h3>
+                <p>QuizLib makes use of <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/classList" target="_blank">Element.classList</a> which is supported by all modern browsers.
+                For Internet Explorer, this means v10+.</p>
+                
                 <h3><a id="html" class="anchor" href="#html" aria-hidden="true"><span class="octicon octicon-link"></span></a>HTML</h3>
-                <p><strong>1.</strong> Import quizlib.js (or quizlib.min.js) and the optional stylesheet.</p>
+                <p><strong>1. Import</strong> quizlib.js (or quizlib.min.js) and the optional stylesheet.</p>
                 
                 <p>QuizLib makes use of the following classes as described below. Classes are not exclusive, so you can use your own alongside them:</p>
                 <ul>
@@ -100,9 +104,12 @@
                     <li><strong>quizlib-question-title</strong>: used to identify the question title element</li>
                     <li><strong>quizlib-question-answers</strong>: used to identify the element containing question answers</li>
                     <li><strong>quizlib-question-warning</strong>: used by the 'unanswered question warning' element</li>
-                    <li><strong>quizlib-correct</strong>: added to question titles to highlight correctly answered questions. </li>
-                    <li><strong>quizlib-incorrect</strong>: added to question titles to highlight incorrectly answered questions.</li>
+                    <li><strong>quizlib-correct</strong>: added to question titles to highlight correctly answered questions </li>
+                    <li><strong>quizlib-incorrect</strong>: added to question titles to highlight incorrectly answered questions</li>
+                    <li><strong>quizlib-temp</strong>: any question child elements with this class will be removed automatically by 
+                        <a href="docs/classes/Quiz.html#method_checkAnswers" target="_blank">checkAnswers</a></li>
                 </ul>
+                <p>See <a href="docs/classes/Quiz.html#property_Classes" target="_blank">Quiz.Classes</a> for constants of classes</p>
                 
                 <p><strong>2. Basic HTML setup:</strong></p>
                 <ul>
@@ -119,7 +126,8 @@
 &lt;div class="quizlib-question my-class"&gt;  
     &lt;div class="quizlib-question-title"&gt;1. Question Title&lt;/div&gt;  
     &lt;div class="quizlib-question-answers"&gt;  
-        &lt;!-- Answer structure can be as simple or as complicated as you like, only the input element matters to the library --&gt;
+        &lt;!-- Answer structure can be as simple or as complicated as you like, 
+             only the input elements matter to the library --&gt;
         &lt;input type="radio" name="q1" value="a"&gt; Option 1&lt;br/&gt;
         &lt;input type="radio" name="q1" value="b"&gt; Option 2&lt;br/&gt;
     &lt;/div&gt;  
@@ -144,7 +152,9 @@
                 <h3><a id="javascript" class="anchor" href="#javascript" aria-hidden="true"><span class="octicon octicon-link"></span></a>JavaScript</h3>
                 Create a new <a href="docs/classes/Quiz" target="_blank">Quiz</a> object where the first parameter is the ID of your quiz container and the second parameter is an array of question answers (input values) in order.
                 <ul> 
-                    <li>To check answers, call <a href="docs/classes/Quiz#method_checkAnswers" target="_blank">Quiz.checkAnswers</a> which returns false if some questions have been skipped and marks them with a message appended to the title. Otherwise returns true and updates <a href="docs/classes/Quiz#property_result" target="_blank">Quiz.result</a></li>
+                    <li>To check answers, call <a href="docs/classes/Quiz#method_checkAnswers" target="_blank">Quiz.checkAnswers</a> which returns false 
+                        if some questions have been skipped and marks them with a message appended to the title. 
+                        Otherwise returns true and updates <a href="docs/classes/Quiz#property_result" target="_blank">Quiz.result</a>. You can pass <strong>false</strong> to <a href="docs/classes/Quiz#method_checkAnswers" target="_blank">Quiz.checkAnswers</a> to ignore unanswered questions.</li>
                     <li>You can then access score data through <a href="docs/classes/Quiz#property_result" target="_blank">Quiz.result</a> which is a <a href="docs/classes/QuizResult" target="_blank">QuizResult</a> object.</li>
                 </ul>
                 
@@ -178,9 +188,12 @@
                 <a href="https://github.com/ALPSquid/quizlib/tarball/master" class="button">
                     <small>Download</small>.tar.gz file
                 </a>
+                <a href="https://github.com/ALPSquid/quizlib/releases/latest" class="button">
+                    <small>View Release</small>Notes
+                </a>
                 
                 <p class="repo-owner"><a href="https://github.com/ALPSquid/quizlib"></a> maintained by <a href="https://github.com/ALPSquid">ALPSquid</a>.</p>
-                <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+                <p>Created with <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
             </aside>
         </div>
         </div>
