@@ -181,10 +181,10 @@
         {
             "file": "src/quizlib.js",
             "line": 228,
-            "description": "Number of questions answered correctly. Updated by {{#crossLink \"QuizResult/setResults:method\"}}{{/crossLink}}",
+            "description": "Total number of questions. Updated by {{#crossLink \"QuizResult/setResults:method\"}}{{/crossLink}}",
             "itemtype": "property",
-            "name": "results",
-            "type": "Array",
+            "name": "totalQuestions",
+            "type": "Number",
             "class": "QuizResult"
         },
         {
