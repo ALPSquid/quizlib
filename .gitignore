@@ -1,3 +1,4 @@
 node_modules/
 .idea/
 deploy.sh
+s101plugin.state
