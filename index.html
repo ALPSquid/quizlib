@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <script type="text/javascript" src="javascripts/highlight.pack.js"></script>
-        <script type="text/javascript" src="javascripts/quizlib.1.0.0.min.js"></script>
+        <script type="text/javascript" src="javascripts/quizlib.1.0.1.min.js"></script>
         <script type="text/javascript" src="javascripts/main.js"></script>
         <link rel="stylesheet" type="text/css" href="stylesheets/github.css" media="screen">
         <link rel="stylesheet" type="text/css" href="stylesheets/quizlib.min.css" media="screen">
@@ -43,6 +43,12 @@
                         </ul>
                     </li>
                     <li><a href="docs" target="_blank">Docs</a></li>
+                    <li>
+                        <a href="#releases">Release Notes and Migration Guide</a>
+                        <ul>
+                            <li><a href="#release-1.0.1">1.0.1</a></li>
+                        </ul>
+                    </li>
                 </ul>
             
                 <br/>
@@ -86,7 +92,7 @@
                     <button type="button" onclick="showResults();">Check Answers</button>
                 </div>
                 <br/>
-                <p>View the code for this example on <a href="https://github.com/ALPSquid/quizlib/tree/master/example">GitHub</a></p>
+                <p>View the code for this example, and a multi-quiz example, on <a href="https://github.com/ALPSquid/quizlib/tree/master/example">GitHub</a></p>
                 <br/>
                 
                 <h2><a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
@@ -162,7 +168,7 @@
                 Create the quiz instance</p>
 <pre><code class="javascript">var quiz = new Quiz('quiz-div', ['a', ['b', 'c', 'd']]);</code></pre>
                 
-                <p>Create a method to check the answers</p>
+                <p>Create a method to check the answers and optionally handle each answer, such as highlighting correct answers:</p>
 <pre><code class="javascript">function myAnswerCheckMethod() {
     // checkAnswers returns true if all questions have been answered and updates the result object
     if (quiz.checkAnswers()) {
@@ -174,11 +180,49 @@
     quiz.checkAnswers(false);
     console.log('Correct answers: ' + quiz.result.score + '/' + quiz.result.totalQuestions);
     console.log('Percent correct: ' + quiz.result.scorePercentFormatted + '%');
+
+    // We can also use the highResults method to highlight correct and incorrect answers.
+    // We pass a callback which takes the quiz object, the current question, the question number and whether it was answered correctly.
+    quiz.highlightResults(myHandleAnswerMethod);
+}
+
+// Callback for quiz.highlightResults called for each question. Parameters are: The quiz object the question belongs to,
+// the question element, the question number and a boolean indicating if the question was answered correctly.
+function myHandleAnswerMethod(quiz, question, no, correct) {
+    if (!correct) {
+        // Highlight the correct answers.
+        // See the example code on GitHub for an example implementation.
+    }
 }
 </code></pre>
                 <br/>
                 
                 <h2><a id="docs" href="docs" target="_blank" aria-hidden="true"><span class="octicon octicon-link"></span>Docs</a></h2>
+
+                <h2 id="releases">Release Notes and Migration Guide</h2>
+                <h3 id="release-1.0.1">1.0.1</h3>
+                <ul>
+                    <li>Moved Quiz.Classes to the static context. (Instance access still exists for backwards compatibility with 1.0.0).</li>
+                    <li>Added quiz object as first argument in highlightResults callback.</li>
+                </ul>
+                <h4>Migrating from 1.0.0 to 1.0.1</h4>
+                <ul>
+                <li>Update your highResults callback to take the quiz object as the first argument:
+                <pre><code class="javascript">// 1.0.0
+function myHandleAnswerMethod(question, no, correct) {}
+
+// 1.0.1
+function myHandleAnswerMethod(quiz, question, no, correct) {}
+                </code></pre></li>
+
+            <li>Access Quiz.Classes through the static context instead of the quiz instance:
+                <pre><code class="javascript">// 1.0.0
+myQuizInstance.Classes.CORRECT;
+
+// 1.0.1
+Quiz.Classes.CORRECT;
+                </code></pre></li>
+            <ul>
             </section>
                 
             <aside id="sidebar">

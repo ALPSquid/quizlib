@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src/quizlib.js - quizlib</title>
+    <title>src\quizlib.js - quizlib</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -17,7 +17,7 @@
                 <h1><img src="../assets/css/logo.png" title="quizlib" width="117" height="52"></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 1.0.0</em>
+            <em>API Docs for: 1.0.1</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -77,10 +77,16 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: src/quizlib.js</h1>
+<h1 class="file-heading">File: src\quizlib.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
+/**
+ * QuizLib version 1.0.1
+ * by Andy Palmer
+ * https://alpsquid.github.io/quizlib
+ */
+
 /**
  * Class that represents an HTML Quiz. Provides methods for checking answers, generating a score and providing visual feedback.  
  *
@@ -119,6 +125,7 @@ var Quiz = function(quizContainer, answers) {
 	 * @type Object
 	 * @default See above
 	 * @final
+	 * @deprecated Since version 1.0.1, Classes should be accessed through the static context (Quiz.Classes)
 	 */
 	this.Classes = Object.freeze({
 		QUESTION: &quot;quizlib-question&quot;, 
@@ -159,7 +166,7 @@ var Quiz = function(quizContainer, answers) {
 
 	// Get all the questions and add element to the questions array
 	for (var i=0; i &lt; this.container.children.length; i++) {
-		if (this.container.children[i].classList.contains(this.Classes.QUESTION)) {
+		if (this.container.children[i].classList.contains(Quiz.Classes.QUESTION)) {
 			this.questions.push(this.container.children[i]);
 		}
 	}
@@ -168,6 +175,41 @@ var Quiz = function(quizContainer, answers) {
 		throw new Error(&quot;Number of answers does not match number of questions!&quot;);
 	}
 };
+
+/**
+ * Enum containing classes used by QuizLib as follows:
+ * - **QUESTION**: &#x27;quizlib-question&#x27;
+ *   - used to identify a question element
+ * - **QUESTION_TITLE**: &#x27;quizlib-question-title&#x27;
+ *   - used to identify the question title element
+ * - **QUESTION_WARNING**: &#x27;quizlib-question-answers&#x27;
+ *   - used to identify the element containing question answers
+ * - **QUESTION_ANSWERS**: &#x27;quizlib-question-warning&#x27;
+ *   - used by the &#x27;unanswered question warning&#x27; element. Removed by {{#crossLink &quot;Quiz/clearHighlights:method&quot;}}{{/crossLink}}
+ * - **CORRECT**: &#x27;quizlib-correct&#x27;
+ *   - added to question titles to highlight correctly answered questions.
+ *     Use freely to take advantage of {{#crossLink &quot;Quiz/highlightResults:method&quot;}}{{/crossLink}} and {{#crossLink &quot;Quiz/clearHighlights:method&quot;}}{{/crossLink}}
+ * - **INCORRECT**: &#x27;quizlib-incorrect&#x27;
+ *   - added to question titles to highlight incorrectly answered questions.
+ *     Use freely to take advantage of {{#crossLink &quot;Quiz/highlightResults:method&quot;}}{{/crossLink}} and {{#crossLink &quot;Quiz/clearHighlights:method&quot;}}{{/crossLink}}
+ * - **TEMP**: &#x27;quizlib-temp&#x27;
+ *   - Add to any elements you want to be removed by {{#crossLink &quot;Quiz/clearHighlights:method&quot;}}{{/crossLink}} (called by {{#crossLink &quot;Quiz/checkAnswers:method&quot;}}{{/crossLink}}).
+ *     For example, adding an element with the correct answer in your {{#crossLink &quot;Quiz/clearHighlights:method&quot;}}{{/crossLink}} callback and have it be removed automatically
+ *
+ * @property Classes
+ * @type Object
+ * @default See above
+ * @final
+ */
+Quiz.Classes = Object.freeze({
+    QUESTION: &quot;quizlib-question&quot;,
+    QUESTION_TITLE: &quot;quizlib-question-title&quot;,
+    QUESTION_ANSWERS: &quot;quizlib-question-answers&quot;,
+    QUESTION_WARNING: &quot;quizlib-question-warning&quot;,
+    CORRECT: &quot;quizlib-correct&quot;,
+    INCORRECT: &quot;quizlib-incorrect&quot;,
+    TEMP: &quot;quizlib-temp&quot;
+});
 
 /**
  * Checks quiz answers against provided answers. Calls {{#crossLink &quot;Quiz/clearHighlights:method&quot;}}{{/crossLink}} for each question.
@@ -188,7 +230,7 @@ Quiz.prototype.checkAnswers = function(flagUnanswered) {
 		this.clearHighlights(question);
 		
 		// Get answers
-		var answerInputs = question.getElementsByClassName(this.Classes.QUESTION_ANSWERS)[0].getElementsByTagName(&#x27;input&#x27;);
+		var answerInputs = question.getElementsByClassName(Quiz.Classes.QUESTION_ANSWERS)[0].getElementsByTagName(&#x27;input&#x27;);
 		var input;
 		for (var k=0; k &lt; answerInputs.length; k++) {
 			input = answerInputs[k];
@@ -217,8 +259,8 @@ Quiz.prototype.checkAnswers = function(flagUnanswered) {
 		for (i=0; i &lt; unansweredQs.length; i++) {
 			var warning = document.createElement(&#x27;span&#x27;);
 			warning.appendChild(document.createTextNode(this.unansweredQuestionText));
-			warning.className = this.Classes.QUESTION_WARNING;
-			unansweredQs[i].getElementsByClassName(this.Classes.QUESTION_TITLE)[0].appendChild(warning);
+			warning.className = Quiz.Classes.QUESTION_WARNING;
+			unansweredQs[i].getElementsByClassName(Quiz.Classes.QUESTION_TITLE)[0].appendChild(warning);
 		}
 	}
 	return false;
@@ -232,24 +274,24 @@ Quiz.prototype.checkAnswers = function(flagUnanswered) {
  */
 Quiz.prototype.clearHighlights = function(question) {
 	// Remove question warning if it exists
-	var questionWarnings = question.getElementsByClassName(this.Classes.QUESTION_WARNING);
+	var questionWarnings = question.getElementsByClassName(Quiz.Classes.QUESTION_WARNING);
 	while (questionWarnings.length &gt; 0) {
 		questionWarnings[0].parentNode.removeChild(questionWarnings[0]);
 	}
 	
 	// Remove highlighted elements
-	var highlightedQuestions = [question.getElementsByClassName(this.Classes.CORRECT), question.getElementsByClassName(this.Classes.INCORRECT)];
+	var highlightedQuestions = [question.getElementsByClassName(Quiz.Classes.CORRECT), question.getElementsByClassName(this.Classes.INCORRECT)];
 	var highlightedElement;
 	for (i=0; i &lt; highlightedQuestions.length; i++) {
 		while (highlightedQuestions[i].length &gt; 0) {
 			highlightedElement = highlightedQuestions[i][0];
-			highlightedElement.classList.remove(this.Classes.CORRECT);
-			highlightedElement.classList.remove(this.Classes.INCORRECT);
+			highlightedElement.classList.remove(Quiz.Classes.CORRECT);
+			highlightedElement.classList.remove(Quiz.Classes.INCORRECT);
 		}
 	}
 	
 	// Remove temp elements
-	var tempElements = question.getElementsByClassName(this.Classes.TEMP);
+	var tempElements = question.getElementsByClassName(Quiz.Classes.TEMP);
 	while (tempElements.length &gt; 0) {
 		tempElements[0].parentNode.removeChild(tempElements[0]);
 	}
@@ -262,9 +304,10 @@ Quiz.prototype.clearHighlights = function(question) {
  * 
  * @method highlightResults
  * @param {Function} [questionCallback] Optional callback for each question with the following arguments:
- * 1. Element: the question element
- * 2. Number: question number
- * 3. Boolean: true if correct, false if incorrect.  
+ * 1. Quiz: the quiz object
+ * 2. Element: the question element
+ * 3. Number: question number
+ * 4. Boolean: true if correct, false if incorrect.
  * 
  * This allows you to further customise the handling of answered questions (and decouples the library from a specific HTML structure), for example highlighting the correct answer(s) on incorrect questions.  
  * Use the Classes.TEMP (&#x27;quizlib-temp&#x27;) class on added elements that you want removing when {{#crossLink &quot;Quiz/checkAnswers:method&quot;}}{{/crossLink}} is called
@@ -275,7 +318,7 @@ Quiz.prototype.clearHighlights = function(question) {
  *    quiz.highlightResults(handleAnswers);
  *    
  *    // handleAnswers callback
- *    function handleAnswers(questionElement, questionNo, correctFlag) {
+ *    function handleAnswers(quizObject, questionElement, questionNo, correctFlag) {
  *        ...
  *    }
  * &#x60;&#x60;&#x60;
@@ -285,12 +328,12 @@ Quiz.prototype.highlightResults = function(questionCallback) {
 	for (var i=0; i &lt; this.questions.length; i++) {
 		question = this.questions[i];
 		if (this.result.results[i]) {
-			question.getElementsByClassName(this.Classes.QUESTION_TITLE)[0].classList.add(this.Classes.CORRECT);
+			question.getElementsByClassName(Quiz.Classes.QUESTION_TITLE)[0].classList.add(Quiz.Classes.CORRECT);
 		}
 		else {
-			question.getElementsByClassName(this.Classes.QUESTION_TITLE)[0].classList.add(this.Classes.INCORRECT);
+			question.getElementsByClassName(Quiz.Classes.QUESTION_TITLE)[0].classList.add(Quiz.Classes.INCORRECT);
 		}
-		if (questionCallback !== undefined) questionCallback(question, i, this.result.results[i]);
+		if (questionCallback !== undefined) questionCallback(this, question, i, this.result.results[i]);
 	}
 };
 
