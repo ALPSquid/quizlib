@@ -1,4 +1,10 @@
 /**
+ * QuizLib version 1.0.1
+ * by Andy Palmer
+ * https://alpsquid.github.io/quizlib
+ */
+
+/**
  * Class that represents an HTML Quiz. Provides methods for checking answers, generating a score and providing visual feedback.  
  *
  * See https://alpsquid.github.io/quizlib for usage
@@ -36,6 +42,7 @@ var Quiz = function(quizContainer, answers) {
 	 * @type Object
 	 * @default See above
 	 * @final
+	 * @deprecated Since version 1.0.1, Classes should be accessed through the static context (Quiz.Classes)
 	 */
 	this.Classes = Object.freeze({
 		QUESTION: "quizlib-question", 
@@ -76,7 +83,7 @@ var Quiz = function(quizContainer, answers) {
 
 	// Get all the questions and add element to the questions array
 	for (var i=0; i < this.container.children.length; i++) {
-		if (this.container.children[i].classList.contains(this.Classes.QUESTION)) {
+		if (this.container.children[i].classList.contains(Quiz.Classes.QUESTION)) {
 			this.questions.push(this.container.children[i]);
 		}
 	}
@@ -85,6 +92,41 @@ var Quiz = function(quizContainer, answers) {
 		throw new Error("Number of answers does not match number of questions!");
 	}
 };
+
+/**
+ * Enum containing classes used by QuizLib as follows:
+ * - **QUESTION**: 'quizlib-question'
+ *   - used to identify a question element
+ * - **QUESTION_TITLE**: 'quizlib-question-title'
+ *   - used to identify the question title element
+ * - **QUESTION_WARNING**: 'quizlib-question-answers'
+ *   - used to identify the element containing question answers
+ * - **QUESTION_ANSWERS**: 'quizlib-question-warning'
+ *   - used by the 'unanswered question warning' element. Removed by {{#crossLink "Quiz/clearHighlights:method"}}{{/crossLink}}
+ * - **CORRECT**: 'quizlib-correct'
+ *   - added to question titles to highlight correctly answered questions.
+ *     Use freely to take advantage of {{#crossLink "Quiz/highlightResults:method"}}{{/crossLink}} and {{#crossLink "Quiz/clearHighlights:method"}}{{/crossLink}}
+ * - **INCORRECT**: 'quizlib-incorrect'
+ *   - added to question titles to highlight incorrectly answered questions.
+ *     Use freely to take advantage of {{#crossLink "Quiz/highlightResults:method"}}{{/crossLink}} and {{#crossLink "Quiz/clearHighlights:method"}}{{/crossLink}}
+ * - **TEMP**: 'quizlib-temp'
+ *   - Add to any elements you want to be removed by {{#crossLink "Quiz/clearHighlights:method"}}{{/crossLink}} (called by {{#crossLink "Quiz/checkAnswers:method"}}{{/crossLink}}).
+ *     For example, adding an element with the correct answer in your {{#crossLink "Quiz/clearHighlights:method"}}{{/crossLink}} callback and have it be removed automatically
+ *
+ * @property Classes
+ * @type Object
+ * @default See above
+ * @final
+ */
+Quiz.Classes = Object.freeze({
+    QUESTION: "quizlib-question",
+    QUESTION_TITLE: "quizlib-question-title",
+    QUESTION_ANSWERS: "quizlib-question-answers",
+    QUESTION_WARNING: "quizlib-question-warning",
+    CORRECT: "quizlib-correct",
+    INCORRECT: "quizlib-incorrect",
+    TEMP: "quizlib-temp"
+});
 
 /**
  * Checks quiz answers against provided answers. Calls {{#crossLink "Quiz/clearHighlights:method"}}{{/crossLink}} for each question.
@@ -105,7 +147,7 @@ Quiz.prototype.checkAnswers = function(flagUnanswered) {
 		this.clearHighlights(question);
 		
 		// Get answers
-		var answerInputs = question.getElementsByClassName(this.Classes.QUESTION_ANSWERS)[0].getElementsByTagName('input');
+		var answerInputs = question.getElementsByClassName(Quiz.Classes.QUESTION_ANSWERS)[0].getElementsByTagName('input');
 		var input;
 		for (var k=0; k < answerInputs.length; k++) {
 			input = answerInputs[k];
@@ -134,8 +176,8 @@ Quiz.prototype.checkAnswers = function(flagUnanswered) {
 		for (i=0; i < unansweredQs.length; i++) {
 			var warning = document.createElement('span');
 			warning.appendChild(document.createTextNode(this.unansweredQuestionText));
-			warning.className = this.Classes.QUESTION_WARNING;
-			unansweredQs[i].getElementsByClassName(this.Classes.QUESTION_TITLE)[0].appendChild(warning);
+			warning.className = Quiz.Classes.QUESTION_WARNING;
+			unansweredQs[i].getElementsByClassName(Quiz.Classes.QUESTION_TITLE)[0].appendChild(warning);
 		}
 	}
 	return false;
@@ -149,24 +191,24 @@ Quiz.prototype.checkAnswers = function(flagUnanswered) {
  */
 Quiz.prototype.clearHighlights = function(question) {
 	// Remove question warning if it exists
-	var questionWarnings = question.getElementsByClassName(this.Classes.QUESTION_WARNING);
+	var questionWarnings = question.getElementsByClassName(Quiz.Classes.QUESTION_WARNING);
 	while (questionWarnings.length > 0) {
 		questionWarnings[0].parentNode.removeChild(questionWarnings[0]);
 	}
 	
 	// Remove highlighted elements
-	var highlightedQuestions = [question.getElementsByClassName(this.Classes.CORRECT), question.getElementsByClassName(this.Classes.INCORRECT)];
+	var highlightedQuestions = [question.getElementsByClassName(Quiz.Classes.CORRECT), question.getElementsByClassName(this.Classes.INCORRECT)];
 	var highlightedElement;
 	for (i=0; i < highlightedQuestions.length; i++) {
 		while (highlightedQuestions[i].length > 0) {
 			highlightedElement = highlightedQuestions[i][0];
-			highlightedElement.classList.remove(this.Classes.CORRECT);
-			highlightedElement.classList.remove(this.Classes.INCORRECT);
+			highlightedElement.classList.remove(Quiz.Classes.CORRECT);
+			highlightedElement.classList.remove(Quiz.Classes.INCORRECT);
 		}
 	}
 	
 	// Remove temp elements
-	var tempElements = question.getElementsByClassName(this.Classes.TEMP);
+	var tempElements = question.getElementsByClassName(Quiz.Classes.TEMP);
 	while (tempElements.length > 0) {
 		tempElements[0].parentNode.removeChild(tempElements[0]);
 	}
@@ -179,9 +221,10 @@ Quiz.prototype.clearHighlights = function(question) {
  * 
  * @method highlightResults
  * @param {Function} [questionCallback] Optional callback for each question with the following arguments:
- * 1. Element: the question element
- * 2. Number: question number
- * 3. Boolean: true if correct, false if incorrect.  
+ * 1. Quiz: the quiz object
+ * 2. Element: the question element
+ * 3. Number: question number
+ * 4. Boolean: true if correct, false if incorrect.
  * 
  * This allows you to further customise the handling of answered questions (and decouples the library from a specific HTML structure), for example highlighting the correct answer(s) on incorrect questions.  
  * Use the Classes.TEMP ('quizlib-temp') class on added elements that you want removing when {{#crossLink "Quiz/checkAnswers:method"}}{{/crossLink}} is called
@@ -192,7 +235,7 @@ Quiz.prototype.clearHighlights = function(question) {
  *    quiz.highlightResults(handleAnswers);
  *    
  *    // handleAnswers callback
- *    function handleAnswers(questionElement, questionNo, correctFlag) {
+ *    function handleAnswers(quizObject, questionElement, questionNo, correctFlag) {
  *        ...
  *    }
  * ```
@@ -202,12 +245,12 @@ Quiz.prototype.highlightResults = function(questionCallback) {
 	for (var i=0; i < this.questions.length; i++) {
 		question = this.questions[i];
 		if (this.result.results[i]) {
-			question.getElementsByClassName(this.Classes.QUESTION_TITLE)[0].classList.add(this.Classes.CORRECT);
+			question.getElementsByClassName(Quiz.Classes.QUESTION_TITLE)[0].classList.add(Quiz.Classes.CORRECT);
 		}
 		else {
-			question.getElementsByClassName(this.Classes.QUESTION_TITLE)[0].classList.add(this.Classes.INCORRECT);
+			question.getElementsByClassName(Quiz.Classes.QUESTION_TITLE)[0].classList.add(Quiz.Classes.INCORRECT);
 		}
-		if (questionCallback !== undefined) questionCallback(question, i, this.result.results[i]);
+		if (questionCallback !== undefined) questionCallback(this, question, i, this.result.results[i]);
 	}
 };
 
