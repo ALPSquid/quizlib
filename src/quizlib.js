@@ -1,4 +1,10 @@
 /**
+ * QuizLib version 1.0.1
+ * by Andy Palmer
+ * https://alpsquid.github.io/quizlib
+ */
+
+/**
  * Class that represents an HTML Quiz. Provides methods for checking answers, generating a score and providing visual feedback.  
  *
  * See https://alpsquid.github.io/quizlib for usage
@@ -215,9 +221,10 @@ Quiz.prototype.clearHighlights = function(question) {
  * 
  * @method highlightResults
  * @param {Function} [questionCallback] Optional callback for each question with the following arguments:
- * 1. Element: the question element
- * 2. Number: question number
- * 3. Boolean: true if correct, false if incorrect.  
+ * 1. Quiz: the quiz object
+ * 2. Element: the question element
+ * 3. Number: question number
+ * 4. Boolean: true if correct, false if incorrect.
  * 
  * This allows you to further customise the handling of answered questions (and decouples the library from a specific HTML structure), for example highlighting the correct answer(s) on incorrect questions.  
  * Use the Classes.TEMP ('quizlib-temp') class on added elements that you want removing when {{#crossLink "Quiz/checkAnswers:method"}}{{/crossLink}} is called
@@ -228,7 +235,7 @@ Quiz.prototype.clearHighlights = function(question) {
  *    quiz.highlightResults(handleAnswers);
  *    
  *    // handleAnswers callback
- *    function handleAnswers(questionElement, questionNo, correctFlag) {
+ *    function handleAnswers(quizObject, questionElement, questionNo, correctFlag) {
  *        ...
  *    }
  * ```
@@ -243,7 +250,7 @@ Quiz.prototype.highlightResults = function(questionCallback) {
 		else {
 			question.getElementsByClassName(Quiz.Classes.QUESTION_TITLE)[0].classList.add(Quiz.Classes.INCORRECT);
 		}
-		if (questionCallback !== undefined) questionCallback(question, i, this.result.results[i]);
+		if (questionCallback !== undefined) questionCallback(this, question, i, this.result.results[i]);
 	}
 };
 
