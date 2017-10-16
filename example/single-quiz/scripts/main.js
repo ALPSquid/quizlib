@@ -28,7 +28,7 @@ function showResults() {
 /** Callback for Quiz.highlightResults. Highlights the correct answers of incorrectly answered questions 
  * Parameters are: the question element, question number, correctly answered flag
  */
-function handleAnswers(question, no, correct) {
+function handleAnswers(quiz, question, no, correct) {
     if (!correct) {
         var answers = question.getElementsByTagName('input');
         for (var i = 0; i < answers.length; i++) {
