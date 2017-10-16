@@ -26,7 +26,7 @@ function showResults() {
 }
 
 /** Callback for Quiz.highlightResults. Highlights the correct answers of incorrectly answered questions 
- * Parameters are: the question element, question number, correctly answered flag
+ * Parameters are: the quiz object, the question element, question number, correctly answered flag
  */
 function handleAnswers(quiz, question, no, correct) {
     if (!correct) {
@@ -35,13 +35,13 @@ function handleAnswers(quiz, question, no, correct) {
             if (answers[i].type === "checkbox" || answers[i].type === "radio"){ 
                 // If the current input element is part of the correct answer, highlight it
                 if (quiz.answers[no].indexOf(answers[i].value) > -1) {
-                    answers[i].parentNode.classList.add(quiz.Classes.CORRECT);
+                    answers[i].parentNode.classList.add(Quiz.Classes.CORRECT);
                 }
             } else {
                 // If the input is anything other than a checkbox or radio button, show the correct answer next to the element
                 var correctAnswer = document.createElement('span');
-                correctAnswer.classList.add(quiz.Classes.CORRECT);
-                correctAnswer.classList.add(quiz.Classes.TEMP); // quiz.checkAnswers will automatically remove elements with the temp class
+                correctAnswer.classList.add(Quiz.Classes.CORRECT);
+                correctAnswer.classList.add(Quiz.Classes.TEMP); // quiz.checkAnswers will automatically remove elements with the temp class
                 correctAnswer.innerHTML = quiz.answers[no];
                 correctAnswer.style.marginLeft = '10px';
                 answers[i].parentNode.insertBefore(correctAnswer, answers[i].nextSibling);
