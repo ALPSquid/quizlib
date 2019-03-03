@@ -157,6 +157,7 @@ Quiz.prototype.checkAnswers = function(flagUnanswered) {
 				userAnswer.push(input.value);
 			}
 		}
+				
 		// Remove single answer from array to match provided answer format
 		if (userAnswer.length == 1 && !Array.isArray(answer)) {
 			userAnswer = userAnswer[0];
@@ -164,7 +165,25 @@ Quiz.prototype.checkAnswers = function(flagUnanswered) {
 			unansweredQs.push(question);
 		}
 		
-		questionResults.push(Utils.compare(userAnswer, answer));
+		// Check the answers.
+		// For single-choice questions, one correct answer must be given (out of perhaps multiple correct ones).
+		if (input.type === "radio") {
+			// Remove the single answer from its array, if it's still in there.
+			if (Array.isArray(userAnswer) && userAnswer.length == 1) {
+				userAnswer = userAnswer[0];
+			}
+		
+			if (Array.isArray(answer)) {
+				questionResults.push(answer.indexOf(userAnswer) >= 0);
+			}
+			else {
+				questionResults.push(userAnswer === answer);
+			}
+		}
+		// For multiple-choice questions (type "checkbox") and free-text questions, all correct answers must be given.
+		else {
+			questionResults.push(Utils.compare(userAnswer, answer));
+		}
 	}
 
 	if (unansweredQs.length === 0 || !flagUnanswered) {
